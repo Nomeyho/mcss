@@ -1,0 +1,48 @@
+name: mcss
+description: Minecraft Server Status
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  provider: 4.0.1
+  flutter_statusbarcolor: ^0.2.3
+  flutter_launcher_icons: ^0.7.3
+  firebase_admob: ^0.9.3
+  shared_preferences: ^0.5.6+3
+  logging: ^0.11.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+#  assets:
+#    - 'assets/img/categories/'
+#    - 'assets/img/items/'
+#    - 'assets/img/characteristics/'
+#    - 'assets/img/damages/'
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: 'assets/fonts/Lato-Bold.ttf'
+          weight: 700
+        - asset: 'assets/fonts/Lato-Regular.ttf'
+          weight: 400
+        - asset: 'assets/fonts/Lato-Light.ttf'
+          weight: 300
+
+# TODO
+#flutter_icons:
+#  android: true
+#  ios: true
+#  image_path_android: "assets/img/icons/icon_android_512x512.png"
+#  image_path_ios: "assets/img/icons/icon_ios_512x512.png"
+#  adaptive_icon_background: "#1D1D1D"
+#  adaptive_icon_foreground: "assets/img/icons/icon_foreground_512x512.png"
