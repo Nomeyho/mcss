@@ -21,7 +21,13 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  String get category_title => "Categories";
+  String get category_mojang_servers => "Mojang servers";
+  String get category_my_servers => "My servers";
+  String get error_empty_up => "Server IP is empty";
+  String get error_invalid_port => "Invalid port number";
+  String get error_negative_port => "Port number cannot be negative";
+  String get error_too_large_port => "Port number cannot be greater than 65535";
+  String get home_title => "Minecraft Server Status";
 }
 
 class $en extends S {
@@ -34,8 +40,6 @@ class $fr extends S {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  @override
-  String get category_title => "Catégories";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

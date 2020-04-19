@@ -6,6 +6,10 @@ import 'package:logging/logging.dart';
 import 'package:mcss/config.dart';
 
 class Banner extends StatefulWidget {
+  static Widget bottomPadding = SliverPadding(
+    padding: EdgeInsets.only(bottom: AdSize.banner.height.toDouble()),
+  );
+
   @override
   _BannerState createState() => _BannerState();
 }

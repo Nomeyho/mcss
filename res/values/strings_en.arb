@@ -1,3 +1,11 @@
 {
-  "category_title": "Categories"
+  "category_my_servers": "My servers",
+  "category_mojang_servers": "Mojang servers",
+
+  "home_title": "Minecraft Server Status",
+
+  "error_empty_up": "Server IP is empty",
+  "error_invalid_port": "Invalid port number",
+  "error_negative_port": "Port number cannot be negative",
+  "error_too_large_port": "Port number cannot be greater than 65535"
 }

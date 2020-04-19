@@ -2,15 +2,16 @@
 
 Check the status of Minecraft servers
 
-## Getting Started
+## Development
 
-This project is a starting point for a Flutter application.
+### Android
+Download `google-services.json` from Firebase and place the file under:
+```
+mobile/android/app/google-services.json
+```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### iOS
+Download `GoogleService-Info.plist` and place the file under`(*with XCODE*):
+```
+ios/Runner/GoogleService-Info.plist
+```
