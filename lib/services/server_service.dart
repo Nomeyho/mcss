@@ -13,8 +13,7 @@ class ServerService {
     final strings = sharedPreferences.getStringList(serverListKey);
 
     try {
-      final servers =
-          strings.map((s) => Server.parse(s)).toList(growable: false);
+      final servers = strings.map((s) => Server.parse(s)).toList();
       log.fine('Loaded servers: $servers');
       return servers;
     } catch (e) {

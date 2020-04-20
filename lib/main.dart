@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   final ServerService serverService = ServerService();
+  serverService.loadServers();
 
   FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

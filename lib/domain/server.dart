@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:mcss/generated/i18n.dart';
+
 
 class Server {
   final String hostname;
@@ -13,41 +12,44 @@ class Server {
   }
 
   static Server parse(final String str) {
-    final tokens = str.split(':');
-    final hostname = tokens[0];
-    final port = int.parse(tokens[1]);
+    String hostname;
+    int port;
+
+    if(str.contains(':')) {
+      final index = str.lastIndexOf(':');
+      hostname = str.substring(0, index);
+      port = int.tryParse(str.substring(index + 1));
+    } else {
+      hostname = str;
+      port = 25565;
+    }
+
+    _validateHostname(hostname);
+    _validatePort(port);
     return Server(hostname, port);
   }
 
-  /*
-  TODO use in add widget
-  static Server parse(final String str, final BuildContext context) {
-    if (str == null || str.isEmpty) {
-      throw Exception(S.of(context).error_empty_up);
+  static _validateHostname(String hostname) {
+    if(hostname.isEmpty) {
+      throw EmptyHostnameException();
     }
-
-    if (str.contains(':')) {
-      final tokens = str.split(':');
-      final hostname = tokens[0];
-      final port = _parsePort(tokens[1], context);
-      return Server(hostname, port);
-    }
-
-    return Server(str, 25565);
   }
 
-  static int _parsePort(final String str, final BuildContext context) {
-    final port = int.tryParse(str);
-
-    if (port == null) {
-      throw Exception(S.of(context).error_invalid_port);
-    } else if (port < 0) {
-      throw Exception(S.of(context).error_negative_port);
-    } else if (port > 65535) {
-      throw Exception(S.of(context).error_too_large_port);
+  static _validatePort(int port) {
+    if(port == null) {
+      throw InvalidPortNumberException();
+    } else if(port < 0) {
+      throw NegativePortNumberException();
+    } else if(port > 65535) {
+      throw TooLargePortNumberException();
     }
-
-    return port;
   }
-  */
 }
+
+class EmptyHostnameException implements Exception {}
+
+class InvalidPortNumberException implements Exception {}
+
+class NegativePortNumberException implements Exception {}
+
+class TooLargePortNumberException implements Exception {}

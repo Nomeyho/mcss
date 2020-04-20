@@ -6,8 +6,11 @@ import 'package:logging/logging.dart';
 import 'package:mcss/config.dart';
 
 class Banner extends StatefulWidget {
+
+  static AdSize get size => AdSize.banner;
+
   static Widget bottomPadding = SliverPadding(
-    padding: EdgeInsets.only(bottom: AdSize.banner.height.toDouble()),
+    padding: EdgeInsets.only(bottom: size.height.toDouble()),
   );
 
   @override
@@ -18,7 +21,6 @@ class _BannerState extends State<Banner> {
   static final log = Logger('Banner');
 
   BannerAd _banner;
-  AdSize _size = AdSize.banner;
 
   BannerAd _createBanner() {
     if (!Platform.isAndroid && !Platform.isIOS) {
@@ -29,7 +31,7 @@ class _BannerState extends State<Banner> {
     FirebaseAdMob.instance.initialize(appId: Config.appId);
     return BannerAd(
       adUnitId: Config.adId,
-      size: _size,
+      size: Banner.size,
       targetingInfo: MobileAdTargetingInfo(
         keywords: ['Minecraft', 'Game', 'Server', 'Ping', 'French'],
         childDirected: true,

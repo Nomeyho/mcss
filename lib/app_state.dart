@@ -7,7 +7,7 @@ class AppState with ChangeNotifier {
 
   final ServerService serverService;
   
-  Category _category;
+  Category _category = Category.myServers;
   List<Server> _servers;
 
   AppState(this.serverService);
@@ -25,6 +25,18 @@ class AppState with ChangeNotifier {
   Future<void> loadServers() async {
     // TODO use category
     _servers = await serverService.loadServers();
+    notifyListeners();
+  }
+
+  Future<void> addServer(String address) async {
+
+
+    if(address.contains)
+    final index = address.lastIndexOf(':');
+    final port = int.tryParse(address.substring(index + 1));
+
+    _servers.add(server);
+    await serverService.saveServers(_servers);
     notifyListeners();
   }
 
