@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' hide Banner;
+import 'package:logging/logging.dart';
 import 'package:mcss/app_state.dart';
 import 'package:mcss/app_theme.dart';
+import 'package:mcss/domain/server.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/widgets/banner.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +20,9 @@ class AddBottomSheet extends StatefulWidget {
 }
 
 class _AddBottomSheetState extends State<AddBottomSheet> {
-  String _address = '';
+  final Logger log = Logger('AddBottomSheet');
+
+  Server _server;
   String _error;
 
   Widget _buildTitle(BuildContext context) {
@@ -33,38 +37,33 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
     );
   }
 
-  _validateIp(BuildContext context) {
-    if (_address == null || _address.isEmpty) {
-      return S.of(context).error_empty_ip;
+  _onIpChange(value) {
+    Server server;
+    String error;
+
+    try {
+      server = Server.parse(value);
+    } on EmptyHostnameException {
+      error = S.of(context).error_empty_ip;
+    } on InvalidPortNumberException {
+      error = S.of(context).error_invalid_port;
+    } on NegativePortNumberException {
+      error = S.of(context).error_negative_port;
+    } on TooLargePortNumberException {
+      error = S.of(context).error_too_large_port;
     }
 
-    // validate port number, if provided
-    if (_address.contains(':')) {
-      final index = _address.lastIndexOf(':');
-      final port = int.tryParse(_address.substring(index + 1));
-
-      if (port == null) {
-        return S.of(context).error_invalid_port;
-      } else if (port < 0) {
-        return S.of(context).error_negative_port;
-      } else if (port > 65535) {
-        return S.of(context).error_too_large_port;
-      }
-    }
-
-    return null;
+    setState(() {
+      _server = server;
+      _error = error;
+    });
   }
 
   Widget _buildInput(BuildContext context) {
     return Expanded(
       child: TextFormField(
         autofocus: true,
-        onChanged: (value) {
-          setState(() {
-            _address = value;
-            _error = _validateIp(context);
-          });
-        },
+        onChanged: _onIpChange,
         cursorColor: AppTheme.primary,
         decoration: InputDecoration(
           hintText: S.of(context).add_server_hint,
@@ -76,13 +75,13 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   }
 
   Widget _buildButton(BuildContext context) {
-    // TODO disabled until valid input
     return IconButton(
       icon: Icon(Icons.add),
-      onPressed: _error == null ? () {
-        final state = Provider.of<AppState>(context, listen: false);
-        state.addServer(server);
-      } : null,
+      onPressed: _error == null
+          ? () async {
+              Provider.of<AppState>(context, listen: false).addServer(_server);
+            }
+          : null,
     );
   }
 

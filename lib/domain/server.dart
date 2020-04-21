@@ -1,5 +1,3 @@
-
-
 class Server {
   final String hostname;
   final int port;
@@ -15,7 +13,7 @@ class Server {
     String hostname;
     int port;
 
-    if(str.contains(':')) {
+    if (str.contains(':')) {
       final index = str.lastIndexOf(':');
       hostname = str.substring(0, index);
       port = int.tryParse(str.substring(index + 1));
@@ -30,17 +28,17 @@ class Server {
   }
 
   static _validateHostname(String hostname) {
-    if(hostname.isEmpty) {
+    if (hostname.isEmpty) {
       throw EmptyHostnameException();
     }
   }
 
   static _validatePort(int port) {
-    if(port == null) {
+    if (port == null) {
       throw InvalidPortNumberException();
-    } else if(port < 0) {
+    } else if (port < 0) {
       throw NegativePortNumberException();
-    } else if(port > 65535) {
+    } else if (port > 65535) {
       throw TooLargePortNumberException();
     }
   }

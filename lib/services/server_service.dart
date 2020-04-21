@@ -24,9 +24,14 @@ class ServerService {
   }
 
   Future<void> saveServers(List<Server> servers) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    final value = servers.map((s) => s.toString()).toList(growable: false);
-    sharedPreferences.setStringList(serverListKey, value);
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      final value = servers.map((s) => s.toString()).toList(growable: false);
+      sharedPreferences.setStringList(serverListKey, value);
+      log.fine('Saved servers: $servers');
+    } catch(e) {
+      log.fine('Failed to save servers: $e');
+    }
   }
 
   Future<StatusResponse> ping(Server server) async {

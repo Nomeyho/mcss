@@ -1,14 +1,16 @@
 import 'package:flutter/widgets.dart';
+import 'package:logging/logging.dart';
 import 'package:mcss/domain/category.dart';
 import 'package:mcss/domain/server.dart';
 import 'package:mcss/services/server_service.dart';
 
 class AppState with ChangeNotifier {
 
+  final Logger log = Logger('AppState');
   final ServerService serverService;
   
   Category _category = Category.myServers;
-  List<Server> _servers;
+  List<Server> _servers = List();
 
   AppState(this.serverService);
 
@@ -28,16 +30,10 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addServer(String address) async {
-
-
-    if(address.contains)
-    final index = address.lastIndexOf(':');
-    final port = int.tryParse(address.substring(index + 1));
-
+  Future<void> addServer(Server server) async {
+    log.fine("Adding server: $server");
     _servers.add(server);
     await serverService.saveServers(_servers);
     notifyListeners();
   }
-
 }
