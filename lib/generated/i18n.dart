@@ -21,6 +21,7 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get add_button => "Add";
   String get add_server_hint => "hypixel.net";
   String get add_server_ip => "Server IP";
   String get add_title => "Add a server";

@@ -15,10 +15,12 @@ class AppTheme {
 
   // theme data
   static final themeData = ThemeData(
+    fontFamily: 'Lato',
     brightness: Brightness.dark,
     splashColor: Colors.transparent,
     primaryColor: AppTheme.primary,
     accentColor: AppTheme.primary,
     buttonTheme: ButtonThemeData(minWidth: 10),
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
   );
 }

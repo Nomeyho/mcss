@@ -8,8 +8,8 @@ import 'package:mcss/widgets/banner.dart';
 import 'package:provider/provider.dart';
 
 class AddBottomSheet extends StatefulWidget {
-  static show(BuildContext context) {
-    showBottomSheet(
+  static PersistentBottomSheetController show(BuildContext context) {
+    return showBottomSheet(
       context: context,
       builder: (_) => AddBottomSheet(),
     );
@@ -62,26 +62,52 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   Widget _buildInput(BuildContext context) {
     return Expanded(
       child: TextFormField(
-        autofocus: true,
+        // autofocus: true,
         onChanged: _onIpChange,
         cursorColor: AppTheme.primary,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: AppTheme.background,
           hintText: S.of(context).add_server_hint,
           labelText: S.of(context).add_server_ip,
           errorText: _error,
+          hasFloatingPlaceholder: false,
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
         ),
       ),
     );
   }
 
+  _onAdd() async {
+    final state = Provider.of<AppState>(context, listen: false);
+    await state.addServer(_server);
+    Navigator.pop(context);
+  }
+
   Widget _buildButton(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.add),
-      onPressed: _error == null
-          ? () async {
-              Provider.of<AppState>(context, listen: false).addServer(_server);
-            }
-          : null,
+    return FlatButton(
+      color: AppTheme.primary,
+      child: Text(
+        S.of(context).add_button,
+        style: TextStyle(color: AppTheme.background),
+      ),
+      onPressed:
+          (_error == null && _server != null) ? _onAdd : null,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      disabledTextColor: AppTheme.medium_emphasis,
+      disabledColor: AppTheme.disabled,
     );
   }
 
@@ -89,8 +115,7 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Container(
-      color: AppTheme.surface,
-      height: 200,
+      height: 205,
       width: width,
       padding: EdgeInsets.only(
         left: 12,
@@ -98,12 +123,22 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
         right: 12,
         bottom: Banner.size.height.toDouble(),
       ),
+      decoration: BoxDecoration(
+        color: AppTheme.surface,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
       child: Column(
         children: <Widget>[
           _buildTitle(context),
+          Padding(padding: EdgeInsets.all(12)),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildInput(context),
+              Padding(padding: EdgeInsets.all(4)),
               _buildButton(context),
             ],
           ),

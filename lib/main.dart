@@ -10,14 +10,9 @@ import 'package:provider/provider.dart';
 void main() async {
   final ServerService serverService = ServerService();
 
-  WidgetsFlutterBinding.ensureInitialized();
   FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   AppLogger.init();
-
-  serverService.loadServers().then((_) {
-    print('ok');
-  });
 
   runApp(
     MultiProvider(
