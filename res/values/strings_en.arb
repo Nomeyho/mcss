@@ -12,5 +12,6 @@
   "error_empty_ip": "Server IP is empty",
   "error_invalid_port": "Invalid port number",
   "error_negative_port": "Port number cannot be negative",
-  "error_too_large_port": "Port number cannot be greater than 65535"
+  "error_too_large_port": "Port number cannot be greater than 65535",
+  "error_max_100_servers": "A maximum of 100 server are allowed"
 }

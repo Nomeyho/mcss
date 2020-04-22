@@ -29,6 +29,7 @@ class S implements WidgetsLocalizations {
   String get category_my_servers => "My servers";
   String get error_empty_ip => "Server IP is empty";
   String get error_invalid_port => "Invalid port number";
+  String get error_max_100_servers => "A maximum of 100 server are allowed";
   String get error_negative_port => "Port number cannot be negative";
   String get error_too_large_port => "Port number cannot be greater than 65535";
   String get home_title => "Minecraft Server Status";

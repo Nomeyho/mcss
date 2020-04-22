@@ -90,8 +90,15 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
 
   _onAdd() async {
     final state = Provider.of<AppState>(context, listen: false);
-    await state.addServer(_server);
-    Navigator.pop(context);
+
+    if(state.servers >= 100) {
+      this.setState(() {
+        _error = S.of(context).error_max_100_servers;
+      });
+    } else {
+      await state.addServer(_server);
+      Navigator.pop(context);
+    }
   }
 
   Widget _buildButton(BuildContext context) {
