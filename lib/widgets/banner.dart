@@ -3,22 +3,16 @@ import 'dart:io';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:mcss/app_theme.dart';
 import 'package:mcss/config.dart';
 
 class Banner extends StatefulWidget {
-
-  static AdSize get size => AdSize.banner;
-
-  static Widget bottomPadding = SliverPadding(
-    padding: EdgeInsets.only(bottom: size.height.toDouble()),
-  );
-
   @override
   _BannerState createState() => _BannerState();
 }
 
 class _BannerState extends State<Banner> {
-  static final log = Logger('Banner');
+  static final log = Logger('MCSS.Banner');
 
   BannerAd _banner;
 
@@ -31,9 +25,9 @@ class _BannerState extends State<Banner> {
     FirebaseAdMob.instance.initialize(appId: Config.appId);
     return BannerAd(
       adUnitId: Config.adId,
-      size: Banner.size,
+      size: AdSize.banner,
       targetingInfo: MobileAdTargetingInfo(
-        keywords: ['Minecraft', 'Game', 'Server', 'Ping', 'French'],
+        keywords: ['Minecraft', 'Game', 'Server', 'Ping', 'Status', 'French'],
         childDirected: true,
         testDevices: [
           '7de57089f51ec6257cfd0f200760878f', // iOS - IPhone6s
@@ -61,8 +55,15 @@ class _BannerState extends State<Banner> {
     super.dispose();
   }
 
+  bool _keyboardIsVisible() {
+    return MediaQuery.of(context).viewInsets.bottom != 0.0;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: AppTheme.background,
+      height: _keyboardIsVisible() ? 0 : AdSize.banner.height.toDouble(),
+    );
   }
 }

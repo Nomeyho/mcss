@@ -2,9 +2,8 @@ import 'package:flutter/material.dart' hide Banner;
 import 'package:logging/logging.dart';
 import 'package:mcss/app_state.dart';
 import 'package:mcss/app_theme.dart';
-import 'package:mcss/domain/server.dart';
+import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
-import 'package:mcss/widgets/banner.dart';
 import 'package:provider/provider.dart';
 
 class AddBottomSheet extends StatefulWidget {
@@ -20,9 +19,9 @@ class AddBottomSheet extends StatefulWidget {
 }
 
 class _AddBottomSheetState extends State<AddBottomSheet> {
-  final Logger log = Logger('AddBottomSheet');
+  final Logger log = Logger('MCSS.AddBottomSheet');
 
-  Server _server;
+  McServer _server;
   String _error;
 
   Widget _buildTitle(BuildContext context) {
@@ -38,11 +37,11 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   }
 
   _onIpChange(value) {
-    Server server;
+    McServer server;
     String error;
 
     try {
-      server = Server.parse(value);
+      server = McServer.parse(value);
     } on EmptyHostnameException {
       error = S.of(context).error_empty_ip;
     } on InvalidPortNumberException {
@@ -91,12 +90,12 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   _onAdd() async {
     final state = Provider.of<AppState>(context, listen: false);
 
-    if(state.servers >= 100) {
+    if(state.mcServers.length >= 100) {
       this.setState(() {
         _error = S.of(context).error_max_100_servers;
       });
     } else {
-      await state.addServer(_server);
+      await state.addMcServer(_server);
       Navigator.pop(context);
     }
   }
@@ -122,13 +121,13 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Container(
-      height: 205,
+      height: 160,
       width: width,
       padding: EdgeInsets.only(
         left: 12,
         top: 24,
         right: 12,
-        bottom: Banner.size.height.toDouble(),
+        bottom: 12,
       ),
       decoration: BoxDecoration(
         color: AppTheme.surface,

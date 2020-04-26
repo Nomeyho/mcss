@@ -33,6 +33,8 @@ class S implements WidgetsLocalizations {
   String get error_negative_port => "Port number cannot be negative";
   String get error_too_large_port => "Port number cannot be greater than 65535";
   String get home_title => "Minecraft Server Status";
+  String get server_card_error => "Error";
+  String get server_card_loading => "Loading...";
 }
 
 class $en extends S {

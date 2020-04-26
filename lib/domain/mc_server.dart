@@ -1,23 +1,28 @@
 import 'dart:math';
 
-class Server {
-
+class McServer {
   static int defaultPort = 25565;
 
   final int id = Random.secure().nextInt(1000000);
   final String hostname;
   final int port;
 
-  Server(this.hostname, this.port);
-
-  bool get hasDefaultPort => port == defaultPort;
+  McServer(this.hostname, this.port);
 
   @override
   String toString() {
     return '$hostname:$port';
   }
 
-  static Server parse(final String str) {
+  String toDisplayString() {
+    if (port == defaultPort) {
+      return hostname;
+    } else {
+      return '$hostname:$port';
+    }
+  }
+
+  static McServer parse(final String str) {
     String hostname;
     int port;
 
@@ -32,7 +37,7 @@ class Server {
 
     _validateHostname(hostname);
     _validatePort(port);
-    return Server(hostname, port);
+    return McServer(hostname, port);
   }
 
   static _validateHostname(String hostname) {

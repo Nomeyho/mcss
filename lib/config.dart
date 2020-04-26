@@ -4,7 +4,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:logging/logging.dart';
 
 class Config {
-  static final log = Logger('Config');
+  static final log = Logger('MCSS.Config');
   static final bool debug = false;
 
   static String get appId {

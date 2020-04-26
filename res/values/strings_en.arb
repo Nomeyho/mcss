@@ -13,5 +13,8 @@
   "error_invalid_port": "Invalid port number",
   "error_negative_port": "Port number cannot be negative",
   "error_too_large_port": "Port number cannot be greater than 65535",
-  "error_max_100_servers": "A maximum of 100 server are allowed"
+  "error_max_100_servers": "A maximum of 100 server are allowed",
+
+  "server_card_error": "Error",
+  "server_card_loading": "Loading..."
 }
