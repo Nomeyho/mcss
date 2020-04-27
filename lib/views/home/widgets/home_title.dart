@@ -17,7 +17,7 @@ class HomeTitle extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'Lato',
             fontWeight: FontWeight.w700,
-            fontSize: 16,
+            fontSize: 18,
             color: AppTheme.high_emphasis,
           ),
         ),

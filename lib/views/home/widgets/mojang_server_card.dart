@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mojang_server.dart';
-import 'package:mcss/widgets/server_card.dart';
+import 'package:mcss/widgets/fade_in.dart';
 
 class MojangServerCard extends StatelessWidget {
   final MojangServer server;
@@ -49,12 +49,37 @@ class MojangServerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ServerCard(
-      iconTag: server.name,
-      icon: Container(height: 60, width: 60),
-      title: _buildTitle(),
-      subtitle: _buildSubtitle(),
-      trailing: _buildTrailing(),
+    return FadeIn(
+      duration: Duration(milliseconds: 700),
+      child: Card(
+        elevation: 0,
+        clipBehavior: Clip.hardEdge,
+        color: AppTheme.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _buildTitle(),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: _buildSubtitle(),
+                    ),
+                  ],
+                ),
+              ),
+              _buildTrailing(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
