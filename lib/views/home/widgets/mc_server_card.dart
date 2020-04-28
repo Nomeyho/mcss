@@ -8,7 +8,7 @@ import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/router.dart';
-import 'package:mcss/views/home/widgets/mc_server_indicator.dart';
+import 'package:mcss/views/home/widgets/indicator.dart';
 import 'package:mcss/widgets/fade_in.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -163,10 +163,15 @@ class _McServerCardState extends State<McServerCard> {
   }
 
   Widget _buildTrailing(AsyncSnapshot<StatusResponse> snapshot) {
-    return McServerIndicator(ms: snapshot.hasData ? snapshot.data.ms : null);
+    return CustomPaint(
+      size: Size(24, 16),
+      painter: Indicator(
+        snapshot.hasData ? snapshot.data.ms : null,
+        numberBars: 4,
+        spacing: 0.7,
+      ),
+    );
   }
-
-  // _buildTrailing(snapshot) // TODO
 
   @override
   Widget build(BuildContext context) {
