@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:dart_mc_ping/model/chat_object.dart';
 import 'package:dart_mc_ping/model/status_response.dart';
 import 'package:flutter/material.dart';
 import 'package:mcss/app_state.dart';
@@ -42,7 +41,7 @@ class _McServerCardState extends State<McServerCard> {
 
   void _onPress() {
     final state = Provider.of<AppState>(context, listen: false);
-    state.selectMcServer(widget.server);
+    state.selectMcServer(widget.server, _status);
     Navigator.of(context).pushNamed(Router.detail);
   }
 
@@ -108,7 +107,7 @@ class _McServerCardState extends State<McServerCard> {
       );
     } else {
       return Text(
-        '${snapshot.data.players.online} / ${snapshot.data.players.max}',
+        '${snapshot.data.players.online} / ${snapshot.data.players.max} players',
         style: const TextStyle(
           fontFamily: 'Lato',
           fontSize: 14,
@@ -119,56 +118,13 @@ class _McServerCardState extends State<McServerCard> {
     }
   }
 
-  Widget _buildContent(AsyncSnapshot<StatusResponse> snapshot) {
-    if (snapshot.hasData) {
-      return Padding(
-        padding: EdgeInsets.only(top: 8),
-        child: Center(
-          child: RichText(
-            text: _toText(snapshot.data.description),
-          ),
-        ),
-      );
-    } else {
-      return Container();
-    }
-  }
-
-  TextSpan _toText(ChatObject chatObject) {
-    return TextSpan(
-      text: chatObject.text,
-      style: TextStyle(
-        color: chatObject.color == null ? null : Color(chatObject.color.hex),
-        fontFamily: 'Lato',
-        fontSize: 14,
-        fontWeight: (chatObject.bold != null && chatObject.bold == true)
-            ? FontWeight.w700
-            : FontWeight.w400,
-        fontStyle: (chatObject.italic != null && chatObject.italic == true)
-            ? FontStyle.italic
-            : FontStyle.normal,
-        decoration: TextDecoration.combine([
-          (chatObject.underlined != null && chatObject.underlined == true)
-              ? TextDecoration.underline
-              : TextDecoration.none,
-          (chatObject.strikethrough != null && chatObject.strikethrough == true)
-              ? TextDecoration.lineThrough
-              : TextDecoration.none,
-        ]),
-      ),
-      children: chatObject.extra
-          .map((extra) => _toText(extra))
-          .toList(growable: false),
-    );
-  }
-
   Widget _buildTrailing(AsyncSnapshot<StatusResponse> snapshot) {
     return CustomPaint(
       size: Size(24, 16),
       painter: Indicator(
         snapshot.hasData ? snapshot.data.ms : null,
-        numberBars: 4,
-        spacing: 0.7,
+        numberBars: 5,
+        spacing: 1,
       ),
     );
   }
@@ -191,36 +147,29 @@ class _McServerCardState extends State<McServerCard> {
               onTap: _onPress,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Hero(
-                            tag: widget.server.id.toString(),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6.0),
-                              child: _buildIcon(snapshot),
-                            ),
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Hero(
+                        tag: widget.server.id.toString(),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(6.0),
+                          child: _buildIcon(snapshot),
                         ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              _buildTitle(),
-                              _buildSubtitle(snapshot),
-                            ],
-                          ),
-                        ),
-                        _buildTrailing(snapshot),
-                      ],
+                      ),
                     ),
-                    _buildContent(snapshot),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _buildTitle(),
+                          _buildSubtitle(snapshot),
+                        ],
+                      ),
+                    ),
+                    _buildTrailing(snapshot),
                   ],
                 ),
               ),

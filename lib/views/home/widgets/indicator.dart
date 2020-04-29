@@ -29,7 +29,7 @@ class Indicator extends CustomPainter {
   Paint get _paint => Paint()
     ..color = _color
     ..style = PaintingStyle.fill
-    ..strokeCap = StrokeCap.round;
+    ..strokeCap = StrokeCap.butt;
 
   @override
   void paint(Canvas canvas, Size size) {
