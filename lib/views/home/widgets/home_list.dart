@@ -5,7 +5,7 @@ import 'package:mcss/views/home/widgets/mc_server_card.dart';
 import 'package:mcss/views/home/widgets/mojang_server_card.dart';
 import 'package:provider/provider.dart';
 
-class ServerList extends StatelessWidget {
+class HomeList extends StatelessWidget {
   Widget _buildLoader() {
     return SliverFillRemaining(
       child: Center(

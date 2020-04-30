@@ -3,7 +3,7 @@ import 'package:mcss/app_theme.dart';
 import 'package:mcss/views/home/widgets/add_floating_button.dart';
 import 'package:mcss/views/home/widgets/home_header.dart';
 import 'package:mcss/views/home/widgets/home_title.dart';
-import 'package:mcss/views/home/widgets/server_list.dart';
+import 'package:mcss/views/home/widgets/home_list.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
           slivers: <Widget>[
             HomeTitle(),
             HomeHeader(scrollController: scrollController),
-            ServerList(),
+            HomeList(),
           ],
         ),
       ),

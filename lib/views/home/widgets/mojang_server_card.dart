@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mojang_server.dart';
+import 'package:mcss/domain/mojang_server_status.dart';
 import 'package:mcss/widgets/server_card.dart';
 
 class MojangServerCard extends StatelessWidget {
@@ -37,7 +38,7 @@ class MojangServerCard extends StatelessWidget {
 
   Widget _buildTrailing() {
     return Text(
-      server.status,
+      server.status.name,
       style: const TextStyle(
         fontFamily: 'Lato',
         fontSize: 14,

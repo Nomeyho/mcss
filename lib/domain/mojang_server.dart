@@ -1,8 +1,11 @@
 
+import 'package:mcss/domain/mojang_server_status.dart';
+
 class MojangServer {
+
   final String name;
   final String url;
-  final String status;
+  final MojangServerStatus status;
 
   MojangServer({ this.name, this.url, this.status });
 
