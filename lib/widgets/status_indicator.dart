@@ -1,33 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mcss/app_theme.dart';
 
 class StatusIndicator extends CustomPainter {
-  final int ms;
+  final Color color;
   final int numberBars;
   final double spacing; // [0, 1]
 
   StatusIndicator(
-    this.ms, {
+    this.color, {
     this.numberBars = 4,
     this.spacing = 1,
   });
 
-  Color get _color {
-    if (ms == null) {
-      return AppTheme.disabled;
-    } else if (ms < 100) {
-      return AppTheme.green;
-    } else if (ms < 200) {
-      return AppTheme.yellow;
-    } else if (ms < 300) {
-      return AppTheme.orange;
-    } else {
-      return AppTheme.red;
-    }
-  }
-
   Paint get _paint => Paint()
-    ..color = _color
+    ..color = color
     ..style = PaintingStyle.fill
     ..strokeCap = StrokeCap.butt;
 
@@ -54,7 +39,7 @@ class StatusIndicator extends CustomPainter {
 
   @override
   bool shouldRepaint(StatusIndicator oldDelegate) {
-    return oldDelegate.ms != ms ||
+    return oldDelegate.color != color ||
         oldDelegate.numberBars != numberBars ||
         oldDelegate.spacing != spacing;
   }

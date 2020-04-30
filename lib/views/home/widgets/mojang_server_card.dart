@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mojang_server.dart';
-import 'package:mcss/domain/mojang_server_status.dart';
+import 'package:mcss/utils/color_utils.dart';
 import 'package:mcss/widgets/server_card.dart';
+import 'package:mcss/widgets/status_indicator.dart';
 
 class MojangServerCard extends StatelessWidget {
   final MojangServer server;
@@ -37,13 +38,12 @@ class MojangServerCard extends StatelessWidget {
   }
 
   Widget _buildTrailing() {
-    return Text(
-      server.status.name,
-      style: const TextStyle(
-        fontFamily: 'Lato',
-        fontSize: 14,
-        fontWeight: FontWeight.w300,
-        color: AppTheme.disabled,
+    return CustomPaint(
+      size: Size(24, 16),
+      painter: StatusIndicator(
+        ColorUtils.getColorFromStatus(server.status),
+        numberBars: 5,
+        spacing: 1,
       ),
     );
   }

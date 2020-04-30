@@ -7,6 +7,7 @@ import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/router.dart';
+import 'package:mcss/utils/color_utils.dart';
 import 'package:mcss/widgets/server_card.dart';
 import 'package:mcss/widgets/status_indicator.dart';
 import 'package:provider/provider.dart';
@@ -122,7 +123,7 @@ class _McServerCardState extends State<McServerCard> {
     return CustomPaint(
       size: Size(24, 16),
       painter: StatusIndicator(
-        snapshot.hasData ? snapshot.data.ms : null,
+        ColorUtils.getColorFromPing(snapshot.hasData ? snapshot.data.ms : null),
         numberBars: 5,
         spacing: 1,
       ),
