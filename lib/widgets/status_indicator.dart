@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mcss/app_theme.dart';
 
-class Indicator extends CustomPainter {
+class StatusIndicator extends CustomPainter {
   final int ms;
   final int numberBars;
   final double spacing; // [0, 1]
 
-  Indicator(
+  StatusIndicator(
     this.ms, {
     this.numberBars = 4,
     this.spacing = 1,
@@ -53,7 +53,7 @@ class Indicator extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(Indicator oldDelegate) {
+  bool shouldRepaint(StatusIndicator oldDelegate) {
     return oldDelegate.ms != ms ||
         oldDelegate.numberBars != numberBars ||
         oldDelegate.spacing != spacing;

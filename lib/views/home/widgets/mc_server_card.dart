@@ -7,8 +7,8 @@ import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/router.dart';
-import 'package:mcss/views/home/widgets/indicator.dart';
-import 'package:mcss/widgets/fade_in.dart';
+import 'package:mcss/widgets/server_card.dart';
+import 'package:mcss/widgets/status_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -121,7 +121,7 @@ class _McServerCardState extends State<McServerCard> {
   Widget _buildTrailing(AsyncSnapshot<StatusResponse> snapshot) {
     return CustomPaint(
       size: Size(24, 16),
-      painter: Indicator(
+      painter: StatusIndicator(
         snapshot.hasData ? snapshot.data.ms : null,
         numberBars: 5,
         spacing: 1,
@@ -134,47 +134,25 @@ class _McServerCardState extends State<McServerCard> {
     return FutureBuilder(
       future: _status,
       builder: (context, AsyncSnapshot<StatusResponse> snapshot) {
-        return FadeIn(
-          duration: Duration(milliseconds: 700),
-          child: Card(
-            elevation: 0,
-            clipBehavior: Clip.hardEdge,
-            color: AppTheme.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: InkWell(
-              onTap: _onPress,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Hero(
-                        tag: widget.server.id.toString(),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(6.0),
-                          child: _buildIcon(snapshot),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          _buildTitle(),
-                          _buildSubtitle(snapshot),
-                        ],
-                      ),
-                    ),
-                    _buildTrailing(snapshot),
-                  ],
-                ),
+        return ServerCard(
+          icon: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Hero(
+              tag: widget.server.id.toString(),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(6.0),
+                child: _buildIcon(snapshot),
               ),
             ),
           ),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildTitle(),
+              _buildSubtitle(snapshot),
+            ],
+          ),
+          trailing: _buildTrailing(snapshot),
         );
       },
     );

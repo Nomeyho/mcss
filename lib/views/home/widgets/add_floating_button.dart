@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide Banner;
-import 'package:mcss/views/home/widgets/add_bottom_sheet.dart';
+import 'package:mcss/views/add/add_bottom_sheet.dart';
 
 class AddFloatingButton extends StatefulWidget {
   @override
