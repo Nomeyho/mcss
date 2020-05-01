@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/widgets/fade_in.dart';
 
-class ServerCard extends StatelessWidget {
+class McCard extends StatelessWidget {
   final Widget icon;
   final Widget content;
   final Widget trailing;
   final Function onPress;
 
-  const ServerCard({
-    Key key,
-    @required this.icon,
-    @required this.content,
-    @required this.trailing,
-    this.onPress
-  }) : super(key: key);
+  const McCard(
+      {Key key,
+      @required this.icon,
+      @required this.content,
+      @required this.trailing,
+      this.onPress})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +35,7 @@ class ServerCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 icon,
+                Padding(padding: EdgeInsets.only(right: 8)),
                 Expanded(child: content),
                 trailing,
               ],

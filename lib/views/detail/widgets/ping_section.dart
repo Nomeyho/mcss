@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mcss/app_state.dart';
+import 'package:mcss/widgets/section_header.dart';
 import 'package:provider/provider.dart';
 
 class PingSection extends StatelessWidget {
@@ -7,6 +8,9 @@ class PingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = Provider.of<AppState>(context).mcServerStatus;
 
-    return Text('${status.ms}');
+    return SectionHeader(
+      title: 'Ping: ',
+      subtitle: '${status.ms} ms',
+    );
   }
 }

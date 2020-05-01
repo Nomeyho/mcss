@@ -1,5 +1,6 @@
 import 'package:dart_mc_ping/model/status_response.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mcss/app_state.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mc_server.dart';
@@ -7,7 +8,7 @@ import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/router.dart';
 import 'package:mcss/utils/color_utils.dart';
 import 'package:mcss/widgets/base64_image.dart';
-import 'package:mcss/widgets/server_card.dart';
+import 'package:mcss/widgets/mc_card.dart';
 import 'package:mcss/widgets/status_indicator.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,8 @@ class McServerCard extends StatefulWidget {
 }
 
 class _McServerCardState extends State<McServerCard> {
+  static final NumberFormat f = NumberFormat('#,###,###');
+
   StatusResponse _status;
   bool _error = false;
   bool _loading = true;
@@ -87,7 +90,7 @@ class _McServerCardState extends State<McServerCard> {
     } else if (_loading) {
       txt = S.of(context).server_card_loading;
     } else {
-      txt = '${_status.players.online} / ${_status.players.max} players';
+      txt = '${_status.players.online}/${_status.players.max} players';
     }
 
     return Text(
@@ -111,12 +114,9 @@ class _McServerCardState extends State<McServerCard> {
 
   @override
   Widget build(BuildContext context) {
-    return ServerCard(
+    return McCard(
       onPress: (_status != null) ? _onPress : null,
-      icon: Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: _buildIcon(),
-      ),
+      icon: _buildIcon(),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

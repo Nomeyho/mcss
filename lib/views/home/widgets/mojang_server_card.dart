@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mojang_server.dart';
 import 'package:mcss/utils/color_utils.dart';
-import 'package:mcss/widgets/server_card.dart';
+import 'package:mcss/widgets/mc_card.dart';
 import 'package:mcss/widgets/status_indicator.dart';
 
 class MojangServerCard extends StatelessWidget {
@@ -47,7 +47,7 @@ class MojangServerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ServerCard(
+    return McCard(
       icon: Container(),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
