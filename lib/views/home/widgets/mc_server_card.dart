@@ -8,6 +8,8 @@ import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/router.dart';
 import 'package:mcss/utils/color_utils.dart';
 import 'package:mcss/widgets/base64_image.dart';
+import 'package:mcss/widgets/error_image.dart';
+import 'package:mcss/widgets/loading_image.dart';
 import 'package:mcss/widgets/mc_card.dart';
 import 'package:mcss/widgets/status_indicator.dart';
 import 'package:provider/provider.dart';
@@ -50,24 +52,32 @@ class _McServerCardState extends State<McServerCard> {
   }
 
   void _onPress() {
-    final state = Provider.of<AppState>(context, listen: false);
-    state.selectMcServer(widget.server, _status);
+    Provider.of<AppState>(context, listen: false)
+        .selectMcServer(widget.server, _status);
     Navigator.of(context).pushNamed(Router.detail);
   }
 
   Widget _buildIcon() {
-    return Hero(
-      tag: widget.server.id.toString(),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(6.0),
+    Widget icon;
+
+    if (_loading) {
+      icon = LoadingImage(width: 50, height: 50);
+    } else if (_error) {
+      icon = ErrorImage(width: 50, height: 50);
+    } else {
+      icon = Hero(
+        tag: widget.server.id.toString(),
         child: Base64Image(
           image: _status?.favicon,
-          error: _error,
-          loading: _loading,
           width: 50,
           height: 50,
         ),
-      ),
+      );
+    }
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(6.0),
+      child: icon,
     );
   }
 

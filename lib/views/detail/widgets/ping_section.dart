@@ -8,9 +8,12 @@ class PingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = Provider.of<AppState>(context).mcServerStatus;
 
-    return SectionHeader(
-      title: 'Ping: ',
-      subtitle: '${status.ms} ms',
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: SectionHeader(
+        title: 'Ping: ',
+        subtitle: '${status.ms} ms',
+      ),
     );
   }
 }

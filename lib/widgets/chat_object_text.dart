@@ -59,6 +59,7 @@ class ChatObjectText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: _text(rootChatObject),
+      textAlign: TextAlign.center,
     );
   }
 }

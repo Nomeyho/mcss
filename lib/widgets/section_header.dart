@@ -13,27 +13,24 @@ class SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: RichText(
-        text: TextSpan(
-          text: title,
-          style: TextStyle(
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
-            color: AppTheme.high_emphasis,
-          ),
-          children: [
-            TextSpan(
-              text: subtitle,
-              style: TextStyle(
-                color: AppTheme.medium_emphasis,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
+    return RichText(
+      text: TextSpan(
+        text: title,
+        style: TextStyle(
+          fontFamily: 'Lato',
+          fontWeight: FontWeight.w700,
+          fontSize: 16,
+          color: AppTheme.high_emphasis,
         ),
+        children: [
+          TextSpan(
+            text: subtitle,
+            style: TextStyle(
+              color: AppTheme.medium_emphasis,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
       ),
     );
   }

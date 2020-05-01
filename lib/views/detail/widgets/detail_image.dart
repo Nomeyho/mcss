@@ -8,9 +8,8 @@ import 'package:provider/provider.dart';
 class DetailImage extends StatelessWidget {
   Widget _buildImage(BuildContext context) {
     final state = Provider.of<AppState>(context);
-
     return Hero(
-      tag: state.mcServer.id,
+      tag: state.mcServer.id.toString(),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(6.0),
         child: Base64Image(

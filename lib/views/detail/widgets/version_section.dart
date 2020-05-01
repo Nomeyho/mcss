@@ -8,9 +8,12 @@ class VersionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = Provider.of<AppState>(context).mcServerStatus;
 
-    return SectionHeader(
-      title: 'Version: ',
-      subtitle: '${status.version.name}',
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: SectionHeader(
+        title: 'Version: ',
+        subtitle: '${status.version.name}',
+      ),
     );
   }
 }

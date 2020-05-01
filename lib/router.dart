@@ -18,8 +18,16 @@ class Router {
         return MaterialPageRoute(builder: (_) => HomeView());
       case detail:
         return MaterialPageRoute(builder: (_) => DetailView());
+
       default:
         throw new Exception('Unexpected route ${settings.name}');
     }
+  }
+
+  static _buildDebugRoute(Widget view) {
+    return PageRouteBuilder(
+      transitionDuration: Duration(seconds: 5),
+      pageBuilder: (_, __, ___) => view,
+    );
   }
 }

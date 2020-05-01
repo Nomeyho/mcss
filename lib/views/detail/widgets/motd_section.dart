@@ -9,17 +9,18 @@ class MotdSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = Provider.of<AppState>(context).mcServerStatus;
 
-    return Column(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.centerLeft,
-          child: SectionHeader(
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SectionHeader(
             title: 'MOTD',
             subtitle: '',
           ),
-        ),
-        ChatObjectText(rootChatObject: status.description)
-      ],
+          ChatObjectText(rootChatObject: status.description)
+        ],
+      ),
     );
   }
 }
