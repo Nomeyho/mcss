@@ -10,7 +10,7 @@ class MotdSection extends StatelessWidget {
     final status = Provider.of<AppState>(context).mcServerStatus;
 
     return Padding(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -18,7 +18,10 @@ class MotdSection extends StatelessWidget {
             title: 'MOTD',
             subtitle: '',
           ),
-          ChatObjectText(rootChatObject: status.description)
+          ChatObjectText(
+            rootChatObject: status.description,
+            fontSize: 16,
+          )
         ],
       ),
     );

@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:mcss/app_state.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/widgets/base64_image.dart';
+import 'package:mcss/widgets/chat_object_text.dart';
 import 'package:mcss/widgets/sliver_header_delegate.dart';
 import 'package:provider/provider.dart';
 
 class DetailImage extends StatelessWidget {
+  Widget _buildMotd(BuildContext context) {
+    final state = Provider.of<AppState>(context);
+
+    return ChatObjectText(
+      rootChatObject: state.mcServerStatus.description,
+      fontSize: 16,
+    );
+  }
+
   Widget _buildImage(BuildContext context) {
     final state = Provider.of<AppState>(context);
     return Hero(
@@ -25,7 +35,12 @@ class DetailImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
       delegate: SliverHeaderDelegate(
-        child: _buildImage(context),
+        child: Column(
+          children: <Widget>[
+            _buildMotd(context),
+            _buildImage(context),
+          ],
+        ),
         minHeight: 60,
         maxHeight: 100,
         background: AppTheme.background,

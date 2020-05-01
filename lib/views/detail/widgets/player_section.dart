@@ -11,13 +11,11 @@ class PlayerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final players = Provider.of<AppState>(context).mcServerStatus.players;
 
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: SectionHeader(
-          title: 'Online players: ',
-          subtitle: '${f.format(players.online)}/${f.format(players.max)}',
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: SectionHeader(
+        title: 'Online players: ',
+        subtitle: '${f.format(players.online)}/${f.format(players.max)}',
       ),
     );
   }

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class ChatObjectText extends StatelessWidget {
   final ChatObject rootChatObject;
+  final double fontSize;
 
   const ChatObjectText({
     Key key,
-    this.rootChatObject,
+    @required this.rootChatObject,
+    @required this.fontSize,
   }) : super(key: key);
 
   Color getColor(ChatObject chatObject) {
@@ -43,7 +45,7 @@ class ChatObjectText extends StatelessWidget {
       style: TextStyle(
         color: getColor(chatObject),
         fontFamily: 'Lato',
-        fontSize: 14,
+        fontSize: fontSize,
         fontWeight: getFontWeight(chatObject),
         fontStyle: getFontStyle(chatObject),
         decoration: TextDecoration.combine([
@@ -51,7 +53,8 @@ class ChatObjectText extends StatelessWidget {
           getLineThrough(chatObject),
         ]),
       ),
-      children: chatObject.extra.map((extra) => _text(extra)).toList(growable: false),
+      children:
+          chatObject.extra.map((extra) => _text(extra)).toList(growable: false),
     );
   }
 

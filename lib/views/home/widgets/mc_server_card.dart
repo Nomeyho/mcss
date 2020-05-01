@@ -58,14 +58,12 @@ class _McServerCardState extends State<McServerCard> {
   }
 
   Widget _buildIcon() {
-    Widget icon;
-
     if (_loading) {
-      icon = LoadingImage(width: 50, height: 50);
+      return LoadingImage(width: 50, height: 50);
     } else if (_error) {
-      icon = ErrorImage(width: 50, height: 50);
+      return ErrorImage(width: 50, height: 50);
     } else {
-      icon = Hero(
+      return Hero(
         tag: widget.server.id.toString(),
         child: Base64Image(
           image: _status?.favicon,
@@ -74,11 +72,6 @@ class _McServerCardState extends State<McServerCard> {
         ),
       );
     }
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(6.0),
-      child: icon,
-    );
   }
 
   Widget _buildTitle() {
@@ -126,7 +119,10 @@ class _McServerCardState extends State<McServerCard> {
   Widget build(BuildContext context) {
     return McCard(
       onPress: (_status != null) ? _onPress : null,
-      icon: _buildIcon(),
+      icon: ClipRRect(
+        borderRadius: BorderRadius.circular(6.0),
+        child: _buildIcon(),
+      ),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

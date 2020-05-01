@@ -9,7 +9,7 @@ class VersionSection extends StatelessWidget {
     final status = Provider.of<AppState>(context).mcServerStatus;
 
     return Padding(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: SectionHeader(
         title: 'Version: ',
         subtitle: '${status.version.name}',

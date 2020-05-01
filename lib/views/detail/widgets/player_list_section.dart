@@ -32,7 +32,7 @@ class PlayerListSection extends StatelessWidget {
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ChatObjectText(rootChatObject: name),
+          ChatObjectText(rootChatObject: name, fontSize: 14),
           Text(
             player.id,
             style: TextStyle(
@@ -54,7 +54,7 @@ class PlayerListSection extends StatelessWidget {
         Provider.of<AppState>(context).mcServerStatus.players.sample;
 
     return SliverPadding(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.symmetric(horizontal: 8),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate((context, index) {
           if (index < players.length) {
