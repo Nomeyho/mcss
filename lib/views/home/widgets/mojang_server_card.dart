@@ -38,13 +38,10 @@ class MojangServerCard extends StatelessWidget {
   }
 
   Widget _buildTrailing() {
-    return CustomPaint(
-      size: Size(24, 16),
-      painter: StatusIndicator(
-        ColorUtils.getColorFromStatus(server.status),
-        numberBars: 5,
-        spacing: 1,
-      ),
+    return StatusIndicator(
+      color: ColorUtils.getColorFromStatus(server.status),
+      width: 24,
+      height: 16,
     );
   }
 

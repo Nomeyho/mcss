@@ -6,12 +6,14 @@ class ServerCard extends StatelessWidget {
   final Widget icon;
   final Widget content;
   final Widget trailing;
+  final Function onPress;
 
   const ServerCard({
     Key key,
-    this.icon,
-    this.content,
-    this.trailing,
+    @required this.icon,
+    @required this.content,
+    @required this.trailing,
+    this.onPress
   }) : super(key: key);
 
   @override
@@ -25,15 +27,18 @@ class ServerCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              icon,
-              Expanded(child: content),
-              trailing,
-            ],
+        child: InkWell(
+          onTap: onPress,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                icon,
+                Expanded(child: content),
+                trailing,
+              ],
+            ),
           ),
         ),
       ),

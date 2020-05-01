@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:dart_mc_ping/model/status_response.dart';
 import 'package:flutter/material.dart';
 import 'package:mcss/app_state.dart';
@@ -8,10 +6,10 @@ import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/router.dart';
 import 'package:mcss/utils/color_utils.dart';
+import 'package:mcss/widgets/base64_image.dart';
 import 'package:mcss/widgets/server_card.dart';
 import 'package:mcss/widgets/status_indicator.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class McServerCard extends StatefulWidget {
   final McServer server;
@@ -26,18 +24,26 @@ class McServerCard extends StatefulWidget {
 }
 
 class _McServerCardState extends State<McServerCard> {
-  Future<StatusResponse> _status;
+  StatusResponse _status;
+  bool _error = false;
+  bool _loading = true;
 
   @override
   void initState() {
     final state = Provider.of<AppState>(context, listen: false);
-    _status = state.pingMcServer(widget.server);
+    state.pingMcServer(widget.server).then((status) {
+      setState(() {
+        _status = status;
+        _error = false;
+        _loading = false;
+      });
+    }).catchError((e) {
+      setState(() {
+        _error = true;
+        _loading = false;
+      });
+    });
     super.initState();
-  }
-
-  static Uint8List _decodeImage(String imageStr) {
-    final UriData imageData = Uri.parse(imageStr).data;
-    return imageData.contentAsBytes();
   }
 
   void _onPress() {
@@ -46,31 +52,20 @@ class _McServerCardState extends State<McServerCard> {
     Navigator.of(context).pushNamed(Router.detail);
   }
 
-  Widget _buildIcon(AsyncSnapshot<StatusResponse> snapshot) {
-    if (snapshot.hasError) {
-      return Container(
-        width: 60,
-        height: 60,
-        color: AppTheme.disabled.withOpacity(0.1),
-      );
-    } else if (!snapshot.hasData) {
-      return Shimmer.fromColors(
-        baseColor: AppTheme.disabled.withOpacity(0.3),
-        highlightColor: AppTheme.disabled.withOpacity(0.5),
-        enabled: !snapshot.hasError,
-        child: Container(
-          width: 60,
-          height: 60,
-          color: AppTheme.disabled,
+  Widget _buildIcon() {
+    return Hero(
+      tag: widget.server.id.toString(),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(6.0),
+        child: Base64Image(
+          image: _status?.favicon,
+          error: _error,
+          loading: _loading,
+          width: 50,
+          height: 50,
         ),
-      );
-    } else {
-      return Image.memory(
-        _decodeImage(snapshot.data.favicon),
-        height: 60,
-        width: 60,
-      );
-    }
+      ),
+    );
   }
 
   Widget _buildTitle() {
@@ -85,77 +80,51 @@ class _McServerCardState extends State<McServerCard> {
     );
   }
 
-  Widget _buildSubtitle(AsyncSnapshot<StatusResponse> snapshot) {
-    if (snapshot.hasError) {
-      return Text(
-        S.of(context).server_card_error,
-        style: const TextStyle(
-          fontFamily: 'Lato',
-          fontSize: 14,
-          fontWeight: FontWeight.w300,
-          color: AppTheme.error,
-        ),
-      );
-    } else if (!snapshot.hasData) {
-      return Text(
-        S.of(context).server_card_loading,
-        style: const TextStyle(
-          fontFamily: 'Lato',
-          fontSize: 14,
-          fontWeight: FontWeight.w300,
-          color: AppTheme.medium_emphasis,
-        ),
-      );
+  Widget _buildSubtitle() {
+    String txt;
+    if (_error) {
+      txt = S.of(context).server_card_error;
+    } else if (_loading) {
+      txt = S.of(context).server_card_loading;
     } else {
-      return Text(
-        '${snapshot.data.players.online} / ${snapshot.data.players.max} players',
-        style: const TextStyle(
-          fontFamily: 'Lato',
-          fontSize: 14,
-          fontWeight: FontWeight.w300,
-          color: AppTheme.medium_emphasis,
-        ),
-      );
+      txt = '${_status.players.online} / ${_status.players.max} players';
     }
+
+    return Text(
+      txt,
+      style: TextStyle(
+        fontFamily: 'Lato',
+        fontSize: 14,
+        fontWeight: FontWeight.w300,
+        color: _error ? AppTheme.error : AppTheme.medium_emphasis,
+      ),
+    );
   }
 
-  Widget _buildTrailing(AsyncSnapshot<StatusResponse> snapshot) {
-    return CustomPaint(
-      size: Size(24, 16),
-      painter: StatusIndicator(
-        ColorUtils.getColorFromPing(snapshot.hasData ? snapshot.data.ms : null),
-        numberBars: 5,
-        spacing: 1,
-      ),
+  Widget _buildTrailing() {
+    return StatusIndicator(
+      color: ColorUtils.getColorFromPing(_status?.ms),
+      width: 24,
+      height: 16,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _status,
-      builder: (context, AsyncSnapshot<StatusResponse> snapshot) {
-        return ServerCard(
-          icon: Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Hero(
-              tag: widget.server.id.toString(),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(6.0),
-                child: _buildIcon(snapshot),
-              ),
-            ),
-          ),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildTitle(),
-              _buildSubtitle(snapshot),
-            ],
-          ),
-          trailing: _buildTrailing(snapshot),
-        );
-      },
+    return ServerCard(
+      onPress: (_status != null) ? _onPress : null,
+      icon: Padding(
+        padding: const EdgeInsets.only(right: 8.0),
+        child: _buildIcon(),
+      ),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildTitle(),
+          _buildSubtitle(),
+        ],
+      ),
+      trailing: _buildTrailing(),
     );
   }
 }

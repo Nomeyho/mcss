@@ -1,11 +1,36 @@
 import 'package:flutter/material.dart';
 
-class StatusIndicator extends CustomPainter {
+class StatusIndicator extends StatelessWidget {
+  final Color color;
+  final double width;
+  final double height;
+
+  const StatusIndicator({
+    Key key,
+    this.color,
+    this.width,
+    this.height,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      size: Size(width, height),
+      painter: _StatusIndicatorPainter(
+        color,
+        numberBars: 5,
+        spacing: 1,
+      ),
+    );
+  }
+}
+
+class _StatusIndicatorPainter extends CustomPainter {
   final Color color;
   final int numberBars;
   final double spacing; // [0, 1]
 
-  StatusIndicator(
+  _StatusIndicatorPainter(
     this.color, {
     this.numberBars = 4,
     this.spacing = 1,
@@ -38,7 +63,7 @@ class StatusIndicator extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(StatusIndicator oldDelegate) {
+  bool shouldRepaint(_StatusIndicatorPainter oldDelegate) {
     return oldDelegate.color != color ||
         oldDelegate.numberBars != numberBars ||
         oldDelegate.spacing != spacing;

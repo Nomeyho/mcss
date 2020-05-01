@@ -17,7 +17,7 @@ class AppState with ChangeNotifier {
   List<McServer> _mcServers = List();
   List<MojangServer> _mojangServers = [];
   McServer _mcServer;
-  Future<StatusResponse> _mcServerStatus;
+  StatusResponse _mcServerStatus;
 
   AppState(this.mcServerService, this.mojangServerService);
 
@@ -31,7 +31,7 @@ class AppState with ChangeNotifier {
 
   McServer get mcServer => _mcServer;
 
-  Future<StatusResponse> get mcServerStatus => _mcServerStatus;
+  StatusResponse get mcServerStatus => _mcServerStatus;
 
   set category(Category value) {
     _category = value;
@@ -70,10 +70,7 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
-  void selectMcServer(
-    McServer mcServer,
-    Future<StatusResponse> mcServerStatus,
-  ) {
+  void selectMcServer(McServer mcServer, StatusResponse mcServerStatus) {
     _mcServer = mcServer;
     _mcServerStatus = mcServerStatus;
     notifyListeners();
