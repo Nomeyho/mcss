@@ -20,12 +20,13 @@ void main() async {
   final mcServerService = McServerService();
   final mojangServerService = MojangServerService();
   final AppState appState = AppState(mcServerService, mojangServerService);
-  appState.category = Category.myServers;
 
   if (Config.debug) {
     await mcServerService.deleteServers();
     await mcServerService.saveServers(defaultServers);
   }
+
+  appState.category = Category.myServers;
 
   runApp(
     MultiProvider(

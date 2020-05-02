@@ -6,6 +6,7 @@ import 'package:mcss/views/detail/widgets/ping_section.dart';
 import 'package:mcss/views/detail/widgets/player_list_section.dart';
 import 'package:mcss/views/detail/widgets/player_section.dart';
 import 'package:mcss/views/detail/widgets/version_section.dart';
+import 'package:mcss/widgets/status_indicator.dart';
 
 class DetailView extends StatelessWidget {
   @override
@@ -22,6 +23,13 @@ class DetailView extends StatelessWidget {
                 PingSection(),
                 VersionSection(),
                 PlayerSection(),
+                Container(
+                  child: StatusIndicator(
+                    color: Colors.red,
+                    width: 70,
+                    height: 140,
+                  ),
+                ),
               ]),
             ),
           ),
