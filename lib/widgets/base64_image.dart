@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:mcss/widgets/error_image.dart';
 
 class Base64Image extends StatelessWidget {
   static final log = Logger('Base64Image');
@@ -22,17 +23,26 @@ class Base64Image extends StatelessWidget {
       final UriData imageData = Uri.parse(dataUrl).data;
       return imageData.contentAsBytes();
     } catch (e) {
-      log.severe('Failed to parse image: $e');
-      return Uint8List(0);
+      log.severe('Failed to parse image: ${e.toString()}');
+      return null;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Image.memory(
-      _decodeImage(image),
-      width: width,
-      height: height,
-    );
+    final bytes = _decodeImage(image);
+
+    if (bytes == null) {
+      return ErrorImage(
+        width: width,
+        height: height,
+      );
+    } else {
+      return Image.memory(
+        bytes,
+        width: width,
+        height: height,
+      );
+    }
   }
 }

@@ -32,6 +32,16 @@ class McServerService {
     }
   }
 
+  Future<void> deleteServers() async {
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.remove(serverListKey);
+      log.fine('Deleted servers');
+    } catch (e) {
+      log.fine('Failed to delete servers: $e');
+    }
+  }
+
   Future<StatusResponse> ping(McServer server) async {
     try {
       final statusResponse = await Minecraft.ping(

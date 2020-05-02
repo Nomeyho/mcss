@@ -5,7 +5,7 @@ import 'package:logging/logging.dart';
 
 class Config {
   static final log = Logger('MCSS.Config');
-  static final bool debug = false;
+  static final bool debug = true;
 
   static String get appId {
     if (debug) {
