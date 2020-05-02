@@ -22,8 +22,14 @@ class DetailTitle extends StatelessWidget {
   }
 
   Widget _buildText(McServer server) {
+    String displayStr = server.toDisplayString();
+    if(displayStr.length > 23) {
+      displayStr = displayStr.substring(0, 20) + '...';
+    }
+
     return Text(
-      server.toDisplayString(),
+      displayStr,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontFamily: 'Lato',
         fontWeight: FontWeight.w700,
