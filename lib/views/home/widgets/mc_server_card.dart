@@ -117,20 +117,27 @@ class _McServerCardState extends State<McServerCard> {
 
   @override
   Widget build(BuildContext context) {
-    return McCard(
-      onPress: (_status != null) ? _onPress : null,
-      icon: ClipRRect(
-        borderRadius: BorderRadius.circular(6.0),
-        child: _buildIcon(),
+    return Dismissible(
+      key: Key(widget.server.id.toString()),
+      onDismissed: (_) {
+        Provider.of<AppState>(context, listen: false)
+            .removeMcServer(widget.server);
+      },
+      child: McCard(
+        onPress: (_status == null) ? null : _onPress,
+        icon: ClipRRect(
+          borderRadius: BorderRadius.circular(6.0),
+          child: _buildIcon(),
+        ),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildTitle(),
+            _buildSubtitle(),
+          ],
+        ),
+        trailing: _buildTrailing(),
       ),
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _buildTitle(),
-          _buildSubtitle(),
-        ],
-      ),
-      trailing: _buildTrailing(),
     );
   }
 }

@@ -22,7 +22,7 @@ class StatusIndicator extends StatelessWidget {
         painter: _StatusIndicatorPainter(
           color,
           numberBars: 4,
-          spacing: 1,
+          spacing: 1.2,
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/generated/i18n.dart';
+import 'package:mcss/views/add/add_bottom_sheet.dart';
 
 class HomeTitle extends StatelessWidget {
   @override
@@ -22,6 +23,12 @@ class HomeTitle extends StatelessWidget {
           ),
         ),
       ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => AddBottomSheet.show(context),
+        ),
+      ],
       pinned: true,
       floating: false,
       elevation: 0,

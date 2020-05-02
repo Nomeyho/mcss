@@ -11,7 +11,7 @@ class McServerService {
   Future<List<McServer>> loadServers() async {
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
-      final strings = sharedPreferences.getStringList(serverListKey);
+      final strings = sharedPreferences.getStringList(serverListKey) ?? [];
       final servers = strings.map((s) => McServer.parse(s)).toList();
       log.fine('Loaded servers: $servers');
       return servers;

@@ -44,7 +44,6 @@ class DetailTitle extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Row(
-          //crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _buildImage(state.mcServer, state.mcServerStatus),

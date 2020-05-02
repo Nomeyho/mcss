@@ -23,7 +23,7 @@ void main() async {
 
   if (Config.debug) {
     await mcServerService.deleteServers();
-    await mcServerService.saveServers(defaultServers);
+    // await mcServerService.saveServers(defaultServers);
   }
 
   appState.category = Category.myServers;

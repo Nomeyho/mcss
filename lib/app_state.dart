@@ -70,6 +70,15 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> removeMcServer(McServer mcServer) async {
+    log.fine("Removing MC server: $mcServer");
+    print('ici ${_mcServers.length}');
+    _mcServers.removeWhere((s) => s.id == mcServer.id);
+    print('ici ${_mcServers.length}');
+    await mcServerService.saveServers(_mcServers);
+    notifyListeners();
+  }
+
   void selectMcServer(McServer mcServer, StatusResponse mcServerStatus) {
     _mcServer = mcServer;
     _mcServerStatus = mcServerStatus;

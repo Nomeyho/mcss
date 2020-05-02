@@ -18,10 +18,15 @@ class HomeList extends StatelessWidget {
     switch (state.category) {
       case Category.myServers:
         return SliverList(
+          delegate: SliverChildListDelegate(state.mcServers
+              .map((s) => McServerCard(server: s))
+              .toList(growable: false)),
+          /*
           delegate: SliverChildBuilderDelegate(
             (_, index) => McServerCard(server: state.mcServers[index]),
             childCount: state.mcServers.length,
           ),
+          */
         );
       case Category.mojang:
         return SliverList(

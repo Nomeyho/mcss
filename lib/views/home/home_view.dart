@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart' hide Banner;
 import 'package:mcss/app_theme.dart';
-import 'package:mcss/views/home/widgets/add_floating_button.dart';
 import 'package:mcss/views/home/widgets/home_header.dart';
-import 'package:mcss/views/home/widgets/home_title.dart';
 import 'package:mcss/views/home/widgets/home_list.dart';
+import 'package:mcss/views/home/widgets/home_title.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -16,7 +15,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: AddFloatingButton(),
       body: SafeArea(
         child: CustomScrollView(
           controller: scrollController,
