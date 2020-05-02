@@ -16,5 +16,8 @@
   "error_max_100_servers": "A maximum of 100 server are allowed",
 
   "server_card_error": "Error",
-  "server_card_loading": "Loading..."
+  "server_card_loading": "Loading...",
+
+  "server_list_error": "Could not server status",
+  "server_list_empty": "Start by adding a new server"
 }

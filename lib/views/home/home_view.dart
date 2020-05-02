@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart' hide Banner;
+import 'package:mcss/app_state.dart';
 import 'package:mcss/app_theme.dart';
+import 'package:mcss/domain/category.dart';
 import 'package:mcss/views/home/widgets/home_header.dart';
-import 'package:mcss/views/home/widgets/home_list.dart';
 import 'package:mcss/views/home/widgets/home_title.dart';
+import 'package:mcss/views/home/widgets/mc_server_list.dart';
+import 'package:mcss/views/home/widgets/mojang_server_list.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -12,17 +16,36 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final ScrollController scrollController = ScrollController();
 
+  Widget _buildServerList() {
+    final state = Provider.of<AppState>(context);
+
+    switch (state.category) {
+      case Category.myServers:
+        return McServerList();
+      case Category.mojang:
+        return MojangServerList();
+        break;
+      default:
+        throw Exception('Unexpected category ${state.category}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
+        child: NestedScrollView(
           controller: scrollController,
-          slivers: <Widget>[
-            HomeTitle(),
-            HomeHeader(scrollController: scrollController),
-            HomeList(),
-          ],
+          headerSliverBuilder: (BuildContext context, bool _) {
+            return [
+              HomeTitle(),
+              HomeHeader(scrollController: scrollController)
+            ];
+          },
+          body: Padding(
+            padding: EdgeInsets.all(12),
+            child: _buildServerList(),
+          ),
         ),
       ),
       backgroundColor: AppTheme.background,

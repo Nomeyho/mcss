@@ -57,6 +57,11 @@ class _McServerCardState extends State<McServerCard> {
     Navigator.of(context).pushNamed(Router.detail);
   }
 
+  void _onDismiss(_) {
+    final state = Provider.of<AppState>(context, listen: false);
+    state.removeMcServer(widget.server);
+  }
+
   Widget _buildIcon() {
     if (_loading) {
       return LoadingImage(width: 50, height: 50);
@@ -119,10 +124,11 @@ class _McServerCardState extends State<McServerCard> {
   Widget build(BuildContext context) {
     return Dismissible(
       key: Key(widget.server.id.toString()),
-      onDismissed: (_) {
-        Provider.of<AppState>(context, listen: false)
-            .removeMcServer(widget.server);
-      },
+      onDismissed: _onDismiss,
+      background: Align(
+        alignment: Alignment.centerRight,
+        child: Icon(Icons.delete, color: AppTheme.disabled),
+      ),
       child: McCard(
         onPress: (_status == null) ? null : _onPress,
         icon: ClipRRect(

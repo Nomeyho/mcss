@@ -21,7 +21,7 @@ class MojangServerService {
       return _parse(response.body);
     } catch (e) {
       log.severe('Failed to retrieve servers status: $e');
-      return [];
+      throw e;
     }
   }
 

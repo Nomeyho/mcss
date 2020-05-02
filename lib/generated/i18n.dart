@@ -35,6 +35,8 @@ class S implements WidgetsLocalizations {
   String get home_title => "Minecraft Server Status";
   String get server_card_error => "Error";
   String get server_card_loading => "Loading...";
+  String get server_list_empty => "Start by adding a new server";
+  String get server_list_error => "Could not server status";
 }
 
 class $en extends S {

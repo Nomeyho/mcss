@@ -13,6 +13,7 @@ class AppState with ChangeNotifier {
   final MojangServerService mojangServerService;
 
   bool _loading = false;
+  bool _error = false;
   Category _category;
   List<McServer> _mcServers = List();
   List<MojangServer> _mojangServers = [];
@@ -22,6 +23,8 @@ class AppState with ChangeNotifier {
   AppState(this.mcServerService, this.mojangServerService);
 
   bool get loading => _loading;
+
+  bool get error => _error;
 
   Category get category => _category;
 
@@ -39,26 +42,35 @@ class AppState with ChangeNotifier {
 
     switch (value) {
       case Category.myServers:
-        _loadMcServers();
+        loadMcServers();
         break;
       case Category.mojang:
-        _loadMojangServers();
+        loadMojangServers();
         break;
     }
   }
 
-  Future<void> _loadMcServers() async {
+  Future<void> loadMcServers() async {
     _loading = true;
+    _error = false;
     notifyListeners();
     _mcServers = await mcServerService.loadServers();
     _loading = false;
     notifyListeners();
   }
 
-  Future<void> _loadMojangServers() async {
+  Future<void> loadMojangServers() async {
     _loading = true;
+    _error = false;
     notifyListeners();
-    _mojangServers = await mojangServerService.loadServers();
+
+    try {
+      _mojangServers = await mojangServerService.loadServers();
+      _error = false;
+    } catch(e) {
+      _mojangServers = [];
+      _error = true;
+    }
     _loading = false;
     notifyListeners();
   }
@@ -72,10 +84,9 @@ class AppState with ChangeNotifier {
 
   Future<void> removeMcServer(McServer mcServer) async {
     log.fine("Removing MC server: $mcServer");
-    print('ici ${_mcServers.length}');
     _mcServers.removeWhere((s) => s.id == mcServer.id);
-    print('ici ${_mcServers.length}');
     await mcServerService.saveServers(_mcServers);
+    log.fine("List now contains ${_mcServers.length} servers");
     notifyListeners();
   }
 
