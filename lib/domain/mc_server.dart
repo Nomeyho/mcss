@@ -1,11 +1,15 @@
 import 'dart:math';
 
+import 'package:dart_mc_ping/model/status_response.dart';
+
 class McServer {
   static int defaultPort = 25565;
 
   final int id = Random.secure().nextInt(1000000);
   final String hostname;
   final int port;
+
+  StatusResponse _status; // TODO use bloc?
 
   McServer(this.hostname, this.port);
 
@@ -55,6 +59,14 @@ class McServer {
       throw TooLargePortNumberException();
     }
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is McServer && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
 
 class EmptyHostnameException implements Exception {}

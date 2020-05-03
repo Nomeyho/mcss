@@ -46,7 +46,7 @@ class DetailTitle extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: AppTheme.background,
       expandedHeight: 100,
-      centerTitle: true,
+      centerTitle: false,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Row(

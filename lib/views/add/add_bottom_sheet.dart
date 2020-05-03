@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart' hide Banner;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
-import 'package:mcss/app_state.dart';
 import 'package:mcss/app_theme.dart';
+import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_bloc.dart';
+import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_event.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:provider/provider.dart';
@@ -88,16 +90,9 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   }
 
   _onAdd() async {
-    final state = Provider.of<AppState>(context, listen: false);
-
-    if(state.mcServers.length >= 100) {
-      this.setState(() {
-        _error = S.of(context).error_max_100_servers;
-      });
-    } else {
-      await state.addMcServer(_server);
-      Navigator.pop(context);
-    }
+    final mcServerListBloc = BlocProvider.of<McServerListBloc>(context);
+    mcServerListBloc.add(McServerListAdd(_server));
+    Navigator.pop(context);
   }
 
   Widget _buildButton(BuildContext context) {

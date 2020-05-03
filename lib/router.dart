@@ -5,6 +5,7 @@ import 'package:mcss/views/home/home_view.dart';
 
 class Router {
   static final log = Logger('MCSS.Router');
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   static get root => home;
   static const home = '/';

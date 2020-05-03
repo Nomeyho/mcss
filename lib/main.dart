@@ -1,39 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:mcss/app.dart';
 import 'package:mcss/app_logger.dart';
-import 'package:mcss/app_state.dart';
+import 'package:mcss/bloc/category_bloc/category_bloc.dart';
+import 'package:mcss/bloc/mc_server_bloc/mc_server_list_bloc.dart';
+import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_bloc.dart';
+import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_event.dart';
+import 'package:mcss/bloc/mojang_server_list_bloc/mojang_server_list_bloc.dart';
+import 'package:mcss/bloc/navigator_bloc/navigator_bloc.dart';
+import 'package:mcss/bloc/simple_bloc_delegate.dart';
 import 'package:mcss/config.dart';
-import 'package:mcss/domain/category.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/services/mc_server_service.dart';
 import 'package:mcss/services/mojang_server_service.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   AppLogger.init();
+  BlocSupervisor.delegate = SimpleBlocDelegate();
 
   final mcServerService = McServerService();
   final mojangServerService = MojangServerService();
-  final AppState appState = AppState(mcServerService, mojangServerService);
 
   if (Config.debug) {
     await mcServerService.deleteServers();
     await mcServerService.saveServers(defaultServers);
   }
 
-  appState.category = Category.myServers;
-
   runApp(
-    MultiProvider(
-      providers: [
-        ListenableProvider(create: (_) => appState),
-      ],
-      child: App(),
+    BlocProvider(
+      create: (BuildContext context) => NavigatorBloc(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<CategoryBloc>(
+            create: (BuildContext context) => CategoryBloc(),
+          ),
+          BlocProvider<McServerBloc>(
+            create: (BuildContext context) => McServerBloc(),
+          ),
+          BlocProvider<McServerListBloc>(
+            create: (BuildContext context) {
+              return McServerListBloc(
+                mcServerService: mcServerService,
+                navigatorBloc: BlocProvider.of(context),
+              )..add(McServerListLoad());
+            },
+          ),
+          BlocProvider<MojangServerListBloc>(
+            create: (BuildContext context) => MojangServerListBloc(
+              mojangServerService: mojangServerService,
+            ),
+          ),
+        ],
+        child: App(),
+      ),
     ),
   );
 }

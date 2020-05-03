@@ -13,12 +13,13 @@ class App extends StatelessWidget {
       title: 'Minecraft Server Status',
       initialRoute: Router.home,
       onGenerateRoute: Router.generateRoute,
-      builder: (context, app) => Column(
-          children: <Widget>[
-            Expanded(child: app),
-            Banner(),
-          ]
-      ),
+      navigatorKey: Router.navigatorKey,
+      builder: (context, app) {
+        return Column(children: <Widget>[
+          Expanded(child: app),
+          Banner(),
+        ]);
+      },
       localizationsDelegates: [
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
