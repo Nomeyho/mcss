@@ -2,14 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dart_mc_ping/model/chat_object.dart';
 import 'package:dart_mc_ping/model/player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:mcss/app_state.dart';
 import 'package:mcss/app_theme.dart';
+import 'package:mcss/bloc/mc_server_bloc/mc_server_list_bloc.dart';
+import 'package:mcss/bloc/mc_server_bloc/mc_server_state.dart';
 import 'package:mcss/widgets/chat_object_text.dart';
 import 'package:mcss/widgets/error_image.dart';
 import 'package:mcss/widgets/loading_image.dart';
 import 'package:mcss/widgets/mc_card.dart';
-import 'package:provider/provider.dart';
 
 class PlayerListSection extends StatelessWidget {
   static final NumberFormat f = NumberFormat('#,###,###');
@@ -24,7 +25,8 @@ class PlayerListSection extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: 'https://minotar.net/avatar/$uuid/100',
           placeholder: (context, url) => LoadingImage(width: 50, height: 50),
-          errorWidget: (context, url, error) => ErrorImage(width: 50, height: 50),
+          errorWidget: (context, url, error) =>
+              ErrorImage(width: 50, height: 50),
           width: 50,
           height: 50,
         ),
@@ -50,20 +52,22 @@ class PlayerListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final players =
-        Provider.of<AppState>(context).mcServerStatus.players.sample;
-
-    return SliverPadding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate((context, index) {
-          if (index < players.length) {
-            return _buildPlayer(players[index]);
-          } else {
-            return null;
-          }
-        }),
-      ),
+    return BlocBuilder<McServerBloc, McServerState>(
+      builder: (context, state) {
+        if (state is McServerSelected) {
+          return SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate.fixed(state
+                  .statusResponse.players.sample
+                  .map((p) => _buildPlayer(p))
+                  .toList(growable: false)),
+            ),
+          );
+        } else {
+          return SliverToBoxAdapter();
+        }
+      },
     );
   }
 }

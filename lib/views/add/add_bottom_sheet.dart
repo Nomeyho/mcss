@@ -90,8 +90,7 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   }
 
   _onAdd() async {
-    final mcServerListBloc = BlocProvider.of<McServerListBloc>(context);
-    mcServerListBloc.add(McServerListAdd(_server));
+    BlocProvider.of<McServerListBloc>(context).add(McServerListAdd(_server));
     Navigator.pop(context);
   }
 

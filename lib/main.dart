@@ -9,7 +9,6 @@ import 'package:mcss/bloc/mc_server_bloc/mc_server_list_bloc.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_bloc.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_event.dart';
 import 'package:mcss/bloc/mojang_server_list_bloc/mojang_server_list_bloc.dart';
-import 'package:mcss/bloc/navigator_bloc/navigator_bloc.dart';
 import 'package:mcss/bloc/simple_bloc_delegate.dart';
 import 'package:mcss/config.dart';
 import 'package:mcss/domain/mc_server.dart';
@@ -32,32 +31,27 @@ void main() async {
   }
 
   runApp(
-    BlocProvider(
-      create: (BuildContext context) => NavigatorBloc(),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<CategoryBloc>(
-            create: (BuildContext context) => CategoryBloc(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<CategoryBloc>(
+          create: (BuildContext context) => CategoryBloc(),
+        ),
+        BlocProvider<McServerBloc>(
+          create: (BuildContext context) => McServerBloc(),
+        ),
+        BlocProvider<McServerListBloc>(
+          create: (BuildContext context) {
+            return McServerListBloc(mcServerService: mcServerService)
+              ..add(McServerListLoad());
+          },
+        ),
+        BlocProvider<MojangServerListBloc>(
+          create: (BuildContext context) => MojangServerListBloc(
+            mojangServerService: mojangServerService,
           ),
-          BlocProvider<McServerBloc>(
-            create: (BuildContext context) => McServerBloc(),
-          ),
-          BlocProvider<McServerListBloc>(
-            create: (BuildContext context) {
-              return McServerListBloc(
-                mcServerService: mcServerService,
-                navigatorBloc: BlocProvider.of(context),
-              )..add(McServerListLoad());
-            },
-          ),
-          BlocProvider<MojangServerListBloc>(
-            create: (BuildContext context) => MojangServerListBloc(
-              mojangServerService: mojangServerService,
-            ),
-          ),
-        ],
-        child: App(),
-      ),
+        ),
+      ],
+      child: App(),
     ),
   );
 }
@@ -147,3 +141,17 @@ final defaultServers = [
   McServer('grmpixelmon.com', 25565),
   McServer('play.mc-drugs.com', 25565)
 ];
+
+return BlocBuilder<MojangServerListBloc, MojangServerListState>(
+builder: (context, state) {
+if (state is MojangServerListLoadInProgress) {
+return
+} else if (state is MojangServerListLoadFailure) {
+return
+} else if (state is MojangServerListLoadSuccess) {
+return
+} else {
+return Container();
+}
+},
+);

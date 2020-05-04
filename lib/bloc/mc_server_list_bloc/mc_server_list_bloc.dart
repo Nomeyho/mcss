@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_event.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_state.dart';
-import 'package:mcss/bloc/navigator_bloc/navigator_bloc.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/services/mc_server_service.dart';
 import 'package:meta/meta.dart';
@@ -12,11 +11,9 @@ import 'package:meta/meta.dart';
 class McServerListBloc extends Bloc<McServerListEvent, McServerListState> {
   final Logger log = Logger('MCSS.McServerListBloc');
   final McServerService mcServerService;
-  final NavigatorBloc navigatorBloc;
 
   McServerListBloc({
     @required this.mcServerService,
-    @required this.navigatorBloc,
   });
 
   @override

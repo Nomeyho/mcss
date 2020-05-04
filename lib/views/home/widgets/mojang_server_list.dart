@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mcss/app_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcss/app_theme.dart';
+import 'package:mcss/bloc/mojang_server_list_bloc/mojang_server_list_bloc.dart';
+import 'package:mcss/bloc/mojang_server_list_bloc/mojang_server_list_state.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/views/home/widgets/mojang_server_card.dart';
-import 'package:provider/provider.dart';
 
 class MojangServerList extends StatelessWidget {
   Widget _buildLoader() {
@@ -28,16 +29,21 @@ class MojangServerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<AppState>(context);
-
-    if (state.loading)
-      return _buildLoader();
-    else if (state.error)
-      return _buildError(context);
-    else
-      return ListView(
-          children: state.mojangServers
-              .map((s) => MojangServerCard(server: s))
-              .toList(growable: false));
+    return BlocBuilder<MojangServerListBloc, MojangServerListState>(
+      builder: (context, state) {
+        if (state is MojangServerListLoadInProgress) {
+          return _buildLoader();
+        } else if (state is MojangServerListLoadFailure) {
+          return _buildError(context);
+        } else if (state is MojangServerListLoadSuccess) {
+          return ListView(
+              children: state.mojangServers
+                  .map((s) => MojangServerCard(server: s))
+                  .toList(growable: false));
+        } else {
+          return Container();
+        }
+      },
+    );
   }
 }

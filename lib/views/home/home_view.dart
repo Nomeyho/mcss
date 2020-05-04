@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart' hide Banner;
-import 'package:mcss/app_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcss/app_theme.dart';
+import 'package:mcss/bloc/category_bloc/category_bloc.dart';
 import 'package:mcss/domain/category.dart';
 import 'package:mcss/views/home/widgets/home_header.dart';
 import 'package:mcss/views/home/widgets/home_title.dart';
 import 'package:mcss/views/home/widgets/mc_server_list.dart';
 import 'package:mcss/views/home/widgets/mojang_server_list.dart';
-import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -17,17 +17,19 @@ class _HomeViewState extends State<HomeView> {
   final ScrollController scrollController = ScrollController();
 
   Widget _buildServerList() {
-    final state = Provider.of<AppState>(context);
-
-    switch (state.category) {
-      case Category.myServers:
-        return McServerList();
-      case Category.mojang:
-        return MojangServerList();
-        break;
-      default:
-        throw Exception('Unexpected category ${state.category}');
-    }
+    return BlocBuilder<CategoryBloc, Category>(
+      builder: (context, category) {
+        switch (category) {
+          case Category.myServers:
+            return McServerList();
+          case Category.mojang:
+            return MojangServerList();
+            break;
+          default:
+            throw Exception('Unexpected category $category');
+        }
+      },
+    );
   }
 
   @override

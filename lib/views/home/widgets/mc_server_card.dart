@@ -1,7 +1,6 @@
 import 'package:dart_mc_ping/model/status_response.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mcss/app_state.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
