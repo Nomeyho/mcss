@@ -1,7 +1,13 @@
-import 'package:dart_mc_ping/model/status_response.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcss/app_theme.dart';
+import 'package:mcss/bloc/mc_server_card_bloc/mc_server_card_bloc.dart';
+import 'package:mcss/bloc/mc_server_card_bloc/mc_server_card_event.dart';
+import 'package:mcss/bloc/mc_server_card_bloc/mc_server_card_state.dart';
+import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_bloc.dart';
+import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_event.dart';
+import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_bloc.dart';
+import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_event.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/router.dart';
@@ -11,7 +17,6 @@ import 'package:mcss/widgets/error_image.dart';
 import 'package:mcss/widgets/loading_image.dart';
 import 'package:mcss/widgets/mc_card.dart';
 import 'package:mcss/widgets/status_indicator.dart';
-import 'package:provider/provider.dart';
 
 class McServerCard extends StatefulWidget {
   final McServer server;
@@ -22,59 +27,50 @@ class McServerCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _McServerCardState createState() => _McServerCardState();
+  State<StatefulWidget> createState() => _McServerCardState();
 }
 
 class _McServerCardState extends State<McServerCard> {
-  static final NumberFormat f = NumberFormat('#,###,###');
-
-  StatusResponse _status;
-  bool _error = false;
-  bool _loading = true;
-
   @override
   void initState() {
-    final state = Provider.of<AppState>(context, listen: false);
-    state.pingMcServer(widget.server).then((status) {
-      setState(() {
-        _status = status;
-        _error = false;
-        _loading = false;
-      });
-    }).catchError((e) {
-      setState(() {
-        _error = true;
-        _loading = false;
-      });
-    });
+    BlocProvider.of<McServerCardBloc>(context)
+        .add(McServerCardLoad(widget.server));
     super.initState();
   }
 
-  void _onPress() {
-    Provider.of<AppState>(context, listen: false)
-        .selectMcServer(widget.server, _status);
-    Navigator.of(context).pushNamed(Router.detail);
+  Function _onPress(McServerCardState state) {
+    if (state is McServerCardStateSuccess) {
+      return () {
+        BlocProvider.of<McServerDetailBloc>(context)
+            .add(McServerDetailSelect(widget.server, state.statusResponse));
+        Navigator.of(context).pushNamed(Router.detail);
+      };
+    } else {
+      return null;
+    }
   }
 
   void _onDismiss(_) {
-    final state = Provider.of<AppState>(context, listen: false);
-    state.removeMcServer(widget.server);
+    BlocProvider.of<McServerListBloc>(context)
+        .add(McServerListDelete(widget.server));
   }
 
-  Widget _buildIcon() {
-    if (_loading) {
+  Widget _buildIcon(McServerCardState state) {
+    if (state is McServerCardStateLoading) {
       return LoadingImage(width: 50, height: 50);
-    } else if (_error) {
-      return ErrorImage(width: 50, height: 50);
-    } else {
+    } else if (state is McServerCardStateSuccess) {
       return Hero(
         tag: widget.server.id.toString(),
         child: Base64Image(
-          image: _status?.favicon,
+          image: state.statusResponse.favicon,
           width: 50,
           height: 50,
         ),
       );
+    } else if (state is McServerCardStateFailure) {
+      return ErrorImage(width: 50, height: 50);
+    } else {
+      return Container(width: 50, height: 50);
     }
   }
 
@@ -90,14 +86,22 @@ class _McServerCardState extends State<McServerCard> {
     );
   }
 
-  Widget _buildSubtitle() {
+  Widget _buildSubtitle(McServerCardState state) {
     String txt;
-    if (_error) {
-      txt = S.of(context).server_card_error;
-    } else if (_loading) {
+    Color color;
+    if (state is McServerCardStateLoading) {
       txt = S.of(context).server_card_loading;
+      color = AppTheme.medium_emphasis;
+    } else if (state is McServerCardStateSuccess) {
+      final players = state.statusResponse.players;
+      txt = '${players.online}/${players.max} players'; // TODO
+      color = AppTheme.medium_emphasis;
+    } else if (state is McServerCardStateFailure) {
+      txt = S.of(context).server_card_error;
+      color = AppTheme.error;
     } else {
-      txt = '${_status.players.online}/${_status.players.max} players';
+      txt = '';
+      color = AppTheme.medium_emphasis;
     }
 
     return Text(
@@ -106,43 +110,51 @@ class _McServerCardState extends State<McServerCard> {
         fontFamily: 'Lato',
         fontSize: 14,
         fontWeight: FontWeight.w300,
-        color: _error ? AppTheme.error : AppTheme.medium_emphasis,
+        color: color,
       ),
     );
   }
 
-  Widget _buildTrailing() {
-    return StatusIndicator(
-      color: ColorUtils.getColorFromPing(_status?.ms),
-      width: 24,
-      height: 16,
-    );
+  Widget _buildTrailing(McServerCardState state) {
+    if (state is McServerCardStateSuccess) {
+      return StatusIndicator(
+        color: ColorUtils.getColorFromPing(state.statusResponse.ms),
+        width: 24,
+        height: 16,
+      );
+    } else {
+      return Container();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: Key(widget.server.id.toString()),
-      onDismissed: _onDismiss,
-      background: Align(
-        alignment: Alignment.centerRight,
-        child: Icon(Icons.delete, color: AppTheme.disabled),
-      ),
-      child: McCard(
-        onPress: (_status == null) ? null : _onPress,
-        icon: ClipRRect(
-          borderRadius: BorderRadius.circular(6.0),
-          child: _buildIcon(),
-        ),
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _buildTitle(),
-            _buildSubtitle(),
-          ],
-        ),
-        trailing: _buildTrailing(),
-      ),
+    return BlocBuilder<McServerCardBloc, McServerCardState>(
+      builder: (context, state) {
+        return Dismissible(
+          key: Key(widget.server.id.toString()),
+          onDismissed: _onDismiss,
+          background: Align(
+            alignment: Alignment.centerRight,
+            child: Icon(Icons.delete, color: AppTheme.disabled),
+          ),
+          child: McCard(
+            onPress: _onPress(state),
+            icon: ClipRRect(
+              borderRadius: BorderRadius.circular(6.0),
+              child: _buildIcon(state),
+            ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildTitle(),
+                _buildSubtitle(state),
+              ],
+            ),
+            trailing: _buildTrailing(state),
+          ),
+        );
+      },
     );
   }
 }

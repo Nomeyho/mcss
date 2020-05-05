@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mcss/app_theme.dart';
-import 'package:mcss/bloc/mc_server_bloc/mc_server_list_bloc.dart';
-import 'package:mcss/bloc/mc_server_bloc/mc_server_state.dart';
+import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_bloc.dart';
+import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_state.dart';
 import 'package:mcss/widgets/chat_object_text.dart';
 import 'package:mcss/widgets/error_image.dart';
 import 'package:mcss/widgets/loading_image.dart';
@@ -52,21 +52,19 @@ class PlayerListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<McServerBloc, McServerState>(
-      builder: (context, state) {
-        if (state is McServerSelected) {
-          return SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate.fixed(state
-                  .statusResponse.players.sample
-                  .map((p) => _buildPlayer(p))
-                  .toList(growable: false)),
-            ),
-          );
-        } else {
-          return SliverToBoxAdapter();
-        }
+    return BlocBuilder<McServerDetailBloc, McServerDetailState>(
+      builder: (context, _state) {
+        final state = _state as McServerSelected;
+
+        return SliverPadding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          sliver: SliverList(
+            delegate: SliverChildListDelegate.fixed(state
+                .statusResponse.players.sample
+                .map((p) => _buildPlayer(p))
+                .toList(growable: false)),
+          ),
+        );
       },
     );
   }

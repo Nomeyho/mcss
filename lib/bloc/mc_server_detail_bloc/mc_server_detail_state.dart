@@ -2,16 +2,16 @@ import 'package:dart_mc_ping/model/status_response.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mcss/domain/mc_server.dart';
 
-abstract class McServerState extends Equatable {
-  const McServerState();
+abstract class McServerDetailState extends Equatable {
+  const McServerDetailState();
 
   @override
   List<Object> get props => [];
 }
 
-class McServerNotSelected extends McServerState {}
+class McServerNotSelected extends McServerDetailState {}
 
-class McServerSelected extends McServerState {
+class McServerSelected extends McServerDetailState {
   final McServer mcServer;
   final StatusResponse statusResponse;
 

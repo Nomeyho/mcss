@@ -5,7 +5,7 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:mcss/app.dart';
 import 'package:mcss/app_logger.dart';
 import 'package:mcss/bloc/category_bloc/category_bloc.dart';
-import 'package:mcss/bloc/mc_server_bloc/mc_server_list_bloc.dart';
+import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_bloc.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_bloc.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_event.dart';
 import 'package:mcss/bloc/mojang_server_list_bloc/mojang_server_list_bloc.dart';
@@ -14,6 +14,7 @@ import 'package:mcss/config.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/services/mc_server_service.dart';
 import 'package:mcss/services/mojang_server_service.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,33 +32,40 @@ void main() async {
   }
 
   runApp(
-    MultiBlocProvider(
+    MultiProvider(
       providers: [
-        BlocProvider<CategoryBloc>(
-          create: (BuildContext context) => CategoryBloc(),
-        ),
-        BlocProvider<McServerBloc>(
-          create: (BuildContext context) => McServerBloc(),
-        ),
-        BlocProvider<McServerListBloc>(
-          create: (BuildContext context) {
-            return McServerListBloc(mcServerService: mcServerService)
-              ..add(McServerListLoad());
-          },
-        ),
-        BlocProvider<MojangServerListBloc>(
-          create: (BuildContext context) => MojangServerListBloc(
-            mojangServerService: mojangServerService,
-          ),
-        ),
+        Provider.value(value: mcServerService),
+        Provider.value(value: mojangServerService),
       ],
-      child: App(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<CategoryBloc>(
+            create: (BuildContext context) => CategoryBloc(),
+          ),
+          BlocProvider<McServerDetailBloc>(
+            create: (BuildContext context) => McServerDetailBloc(),
+          ),
+          BlocProvider<McServerListBloc>(
+            create: (BuildContext context) {
+              return McServerListBloc(mcServerService: mcServerService)
+                ..add(McServerListLoad());
+            },
+          ),
+          BlocProvider<MojangServerListBloc>(
+            create: (BuildContext context) => MojangServerListBloc(
+              mojangServerService: mojangServerService,
+            ),
+          ),
+        ],
+        child: App(),
+      ),
     ),
   );
 }
 
 final defaultServers = [
   McServer('hub.mcs.gg', 25565),
+  /*
   McServer('mc.mythcraft.gg', 25565),
   McServer('hub.bmc.gg', 25565),
   McServer('grmpixelmon.com', 25565),
@@ -140,18 +148,5 @@ final defaultServers = [
   McServer('play.skyrealms.games', 25565),
   McServer('grmpixelmon.com', 25565),
   McServer('play.mc-drugs.com', 25565)
+  */
 ];
-
-return BlocBuilder<MojangServerListBloc, MojangServerListState>(
-builder: (context, state) {
-if (state is MojangServerListLoadInProgress) {
-return
-} else if (state is MojangServerListLoadFailure) {
-return
-} else if (state is MojangServerListLoadSuccess) {
-return
-} else {
-return Container();
-}
-},
-);

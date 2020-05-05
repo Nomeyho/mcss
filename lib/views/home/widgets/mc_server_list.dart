@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcss/app_theme.dart';
+import 'package:mcss/bloc/mc_server_card_bloc/mc_server_card_bloc.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_bloc.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_state.dart';
+import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
+import 'package:mcss/services/mc_server_service.dart';
 import 'package:mcss/views/home/widgets/mc_server_card.dart';
+import 'package:provider/provider.dart';
 
 class McServerList extends StatelessWidget {
   Widget _buildLoader() {
@@ -41,6 +45,17 @@ class McServerList extends StatelessWidget {
     );
   }
 
+  Widget _buildServerCard(McServer mcServer) {
+    return BlocProvider(
+      create: (context) {
+        return McServerCardBloc(
+          mcServerService: Provider.of<McServerService>(context, listen: false),
+        );
+      },
+      child: McServerCard(server: mcServer),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<McServerListBloc, McServerListState>(
@@ -55,7 +70,7 @@ class McServerList extends StatelessWidget {
           } else {
             return ListView(
                 children: state.mcServers
-                    .map((s) => McServerCard(server: s))
+                    .map((s) => _buildServerCard(s))
                     .toList(growable: false));
           }
         } else {
