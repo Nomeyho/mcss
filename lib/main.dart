@@ -46,14 +46,15 @@ void main() async {
             create: (BuildContext context) => McServerDetailBloc(),
           ),
           BlocProvider<McServerListBloc>(
-            create: (BuildContext context) {
-              return McServerListBloc(mcServerService: mcServerService)
-                ..add(McServerListLoad());
-            },
+            create: (BuildContext context) => McServerListBloc(
+              mcServerService: mcServerService,
+              categoryBloc: BlocProvider.of<CategoryBloc>(context),
+            ),
           ),
           BlocProvider<MojangServerListBloc>(
             create: (BuildContext context) => MojangServerListBloc(
               mojangServerService: mojangServerService,
+              categoryBloc: BlocProvider.of<CategoryBloc>(context),
             ),
           ),
         ],
@@ -65,7 +66,6 @@ void main() async {
 
 final defaultServers = [
   McServer('hub.mcs.gg', 25565),
-  /*
   McServer('mc.mythcraft.gg', 25565),
   McServer('hub.bmc.gg', 25565),
   McServer('grmpixelmon.com', 25565),
@@ -83,6 +83,7 @@ final defaultServers = [
   McServer('one.lemoncloud.net', 25565),
   McServer('mc-gtm.net', 25565),
   McServer('mc.gamster.org', 25565),
+/*
   McServer('join.manacube.net', 25565),
   McServer('us.mineplex.com', 25565),
   McServer('play.thedestinymc.com', 25565),

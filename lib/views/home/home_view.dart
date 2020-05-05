@@ -20,9 +20,9 @@ class _HomeViewState extends State<HomeView> {
     return BlocBuilder<CategoryBloc, Category>(
       builder: (context, category) {
         switch (category) {
-          case Category.myServers:
+          case Category.mcServers:
             return McServerList();
-          case Category.mojang:
+          case Category.mojangServers:
             return MojangServerList();
             break;
           default:

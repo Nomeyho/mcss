@@ -90,14 +90,18 @@ class _McServerCardState extends State<McServerCard> {
     String txt;
     Color color;
     if (state is McServerCardStateLoading) {
-      txt = S.of(context).server_card_loading;
+      txt = S
+          .of(context)
+          .server_card_loading;
       color = AppTheme.medium_emphasis;
     } else if (state is McServerCardStateSuccess) {
       final players = state.statusResponse.players;
       txt = '${players.online}/${players.max} players'; // TODO
       color = AppTheme.medium_emphasis;
     } else if (state is McServerCardStateFailure) {
-      txt = S.of(context).server_card_error;
+      txt = S
+          .of(context)
+          .server_card_error;
       color = AppTheme.error;
     } else {
       txt = '';

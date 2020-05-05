@@ -7,13 +7,12 @@ class SimpleBlocDelegate extends BlocDelegate {
   @override
   void onEvent(Bloc bloc, Object event) {
     super.onEvent(bloc, event);
-    log.fine(event);
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    log.fine(transition);
+    log.fine('${transition.event}: ${transition.currentState} -> ${transition.nextState}');
   }
 
   @override

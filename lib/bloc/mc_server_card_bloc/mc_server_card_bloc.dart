@@ -33,7 +33,5 @@ class McServerCardBloc extends Bloc<McServerCardEvent, McServerCardState> {
     } catch (e) {
       yield McServerCardStateFailure();
     }
-
-    yield McServerCardStateLoading();
   }
 }

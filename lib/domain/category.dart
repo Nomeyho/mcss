@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:mcss/generated/i18n.dart';
 
 enum Category {
-  myServers,
-  mojang,
+  mcServers,
+  mojangServers,
 }
 
 extension CategoryExtension on Category {
   String translate(BuildContext context) {
     switch(this) {
-      case Category.myServers:
+      case Category.mcServers:
         return S.of(context).category_my_servers;
-      case Category.mojang:
+      case Category.mojangServers:
         return S.of(context).category_mojang_servers;
         default:
           return throw Exception('Could not translate $this');

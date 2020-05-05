@@ -9,7 +9,7 @@ class CategoryBloc extends Bloc<CategoryEvent, Category> {
   final Logger log = Logger('MCSS.CategoryBloc');
 
   @override
-  Category get initialState => Category.myServers;
+  Category get initialState => Category.mcServers;
 
   @override
   Stream<Category> mapEventToState(CategoryEvent event) async* {
