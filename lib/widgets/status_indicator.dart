@@ -22,7 +22,7 @@ class StatusIndicator extends StatelessWidget {
         painter: _StatusIndicatorPainter(
           color,
           numberBars: 4,
-          spacing: 1.2,
+          spacing: 3,
         ),
       ),
     );
@@ -69,7 +69,7 @@ class _StatusIndicatorPainter extends CustomPainter {
       path.lineTo(xMin, height - xMin * dy);
       path.close();
 
-      canvas.drawPath(path, _strokePaint(width / 20));
+      canvas.drawPath(path, _strokePaint(width / 10));
       canvas.drawPath(path, _fillPaint);
     }
   }
