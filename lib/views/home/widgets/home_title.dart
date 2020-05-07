@@ -9,10 +9,10 @@ class HomeTitle extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: AppTheme.background,
       expandedHeight: 100,
-      centerTitle: true,
       automaticallyImplyLeading: false,
       flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
+        centerTitle: false,
+        titlePadding: EdgeInsets.only(left: 24, bottom: 16),
         title: Text(
           S.of(context).home_title,
           style: TextStyle(
@@ -26,6 +26,7 @@ class HomeTitle extends StatelessWidget {
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.add),
+          // TODO should only be visible/enabled if state is loaded?
           onPressed: () => AddBottomSheet.show(context),
         ),
       ],

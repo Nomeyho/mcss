@@ -40,7 +40,7 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
 
   _onIpChange(value) {
     McServer server;
-    String error;
+    String error; // TODO global error state?
 
     try {
       server = McServer.parse(value);
@@ -90,6 +90,7 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   }
 
   _onAdd() async {
+    /// TODO prevent duplicates...
     BlocProvider.of<McServerListBloc>(context).add(McServerListAdd(_server));
     Navigator.pop(context);
   }

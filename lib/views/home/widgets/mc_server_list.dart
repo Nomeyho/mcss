@@ -47,6 +47,7 @@ class McServerList extends StatelessWidget {
 
   Widget _buildServerCard(McServer mcServer) {
     return BlocProvider(
+      /// Preserve state upon deleting to avoid useless reloading
       key: ValueKey(mcServer.id),
       create: (context) {
         return McServerCardBloc(
