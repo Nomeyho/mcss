@@ -7,7 +7,6 @@ import 'package:mcss/app_logger.dart';
 import 'package:mcss/bloc/category_bloc/category_bloc.dart';
 import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_bloc.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_bloc.dart';
-import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_event.dart';
 import 'package:mcss/bloc/mojang_server_list_bloc/mojang_server_list_bloc.dart';
 import 'package:mcss/bloc/simple_bloc_delegate.dart';
 import 'package:mcss/config.dart';
@@ -67,11 +66,11 @@ void main() async {
 final defaultServers = [
   McServer('hub.mcs.gg', 25565),
   McServer('mc.mythcraft.gg', 25565),
-  McServer('hub.bmc.gg', 25565),
   McServer('grmpixelmon.com', 25565),
   McServer('one.lemoncloud.net', 25565),
   McServer('play.extremecraft.net', 25565),
-  McServer('hub.mcs.gg', 25565),
+
+  /*
   McServer('play.cubecraft.net', 25565),
   McServer('pvpwars.net', 25565),
   McServer('Play.datblock.com', 25565),
@@ -83,7 +82,6 @@ final defaultServers = [
   McServer('one.lemoncloud.net', 25565),
   McServer('mc-gtm.net', 25565),
   McServer('mc.gamster.org', 25565),
-/*
   McServer('join.manacube.net', 25565),
   McServer('us.mineplex.com', 25565),
   McServer('play.thedestinymc.com', 25565),

@@ -1,15 +1,12 @@
-import 'dart:math';
 
-import 'package:dart_mc_ping/model/status_response.dart';
 
 class McServer {
   static int defaultPort = 25565;
 
-  final int id = Random.secure().nextInt(1000000);
   final String hostname;
   final int port;
 
-  StatusResponse _status; // TODO use bloc?
+  String get id => '$hostname:$port';
 
   McServer(this.hostname, this.port);
 
