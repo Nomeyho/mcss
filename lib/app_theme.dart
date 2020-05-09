@@ -3,15 +3,16 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const primary = const Color(0xFFC07529);
+  static const primary = const Color(0xFF7EB6FF);
   static const error = const Color(0xFFF85C4D);
-  static const background = const Color(0xFF121212);
-  static const surface = const Color(0xFF1D1D1D);
+  static const background = const Color(0xFF131316);
+  static const medium_black = const Color(0xFF1B1B1F);
+  static const highlight = const Color(0xFF242428);
 
   // text
-  static const high_emphasis = const Color(0xDEFFFFFF); // 87%
-  static const medium_emphasis = const Color(0x9AFFFFFF); // 60%
-  static const disabled = const Color(0x61FFFFFF); // 38%
+  static const high_emphasis = const Color(0xFFD3D3D4);
+  static const medium_emphasis = const Color(0xFF7E7E80);
+  static const disabled = const Color(0xFF323234);
 
   // indicator
   static const red = const Color(0xFFA20100);

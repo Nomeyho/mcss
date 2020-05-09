@@ -23,12 +23,13 @@ class McCard extends StatelessWidget {
       child: Card(
         elevation: 0,
         clipBehavior: Clip.hardEdge,
-        color: AppTheme.surface,
+        color: AppTheme.medium_black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: InkWell(
           onTap: onPress,
+          highlightColor: AppTheme.highlight,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(

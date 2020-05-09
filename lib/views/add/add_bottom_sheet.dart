@@ -130,7 +130,7 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
         bottom: 12,
       ),
       decoration: BoxDecoration(
-        color: AppTheme.surface,
+        color: AppTheme.medium_black,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),

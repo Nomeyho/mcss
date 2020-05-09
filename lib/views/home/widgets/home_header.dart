@@ -16,19 +16,9 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
       delegate: SliverHeaderDelegate(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: AppTheme.high_emphasis,
-                width: 0.1,
-              ),
-            ),
-          ),
-          child: CategorySelector(scrollController: scrollController),
-        ),
-        minHeight: 70,
-        maxHeight: 70,
+        child: CategorySelector(scrollController: scrollController),
+        minHeight: 80,
+        maxHeight: 80,
         background: AppTheme.background,
       ),
       pinned: true,

@@ -134,6 +134,7 @@ class _McServerCardState extends State<McServerCard> {
         return Dismissible(
           key: Key(widget.server.id.toString()),
           onDismissed: _onDismiss,
+          direction: DismissDirection.endToStart,
           background: Align(
             alignment: Alignment.centerRight,
             child: Icon(Icons.delete, color: AppTheme.disabled),
