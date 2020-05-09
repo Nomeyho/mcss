@@ -15,8 +15,8 @@ class LoadingImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: AppTheme.disabled.withOpacity(0.3),
-      highlightColor: AppTheme.disabled.withOpacity(0.5),
+      baseColor: AppTheme.highlight.withOpacity(0.5),
+      highlightColor: AppTheme.highlight,
       child: Container(
         width: width,
         height: height,

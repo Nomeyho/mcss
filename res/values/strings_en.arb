@@ -4,10 +4,11 @@
 
   "home_title": "Minecraft Server Status",
 
-  "add_title": "Add a server",
+  "add_title": "New server",
   "add_server_ip": "Server IP",
-  "add_server_hint": "hypixel.net",
+  "add_server_hint": "play.hypixel.net",
   "add_button": "Add",
+  "add_cancel_button": "Cancel",
 
   "error_empty_ip": "Server IP is empty",
   "error_invalid_port": "Invalid port number",

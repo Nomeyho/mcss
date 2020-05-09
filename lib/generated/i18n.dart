@@ -22,9 +22,10 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get add_button => "Add";
-  String get add_server_hint => "hypixel.net";
+  String get add_cancel_button => "Cancel";
+  String get add_server_hint => "play.hypixel.net";
   String get add_server_ip => "Server IP";
-  String get add_title => "Add a server";
+  String get add_title => "New server";
   String get category_mojang_servers => "Mojang servers";
   String get category_my_servers => "My servers";
   String get error_already_exist => "This server already exist";

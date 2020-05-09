@@ -6,7 +6,7 @@ class AppTheme {
   static const primary = const Color(0xFF7EB6FF);
   static const error = const Color(0xFFF85C4D);
   static const background = const Color(0xFF131316);
-  static const medium_black = const Color(0xFF1B1B1F);
+  static const surface = const Color(0xFF1B1B1F);
   static const highlight = const Color(0xFF242428);
 
   // text

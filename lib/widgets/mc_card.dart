@@ -23,7 +23,7 @@ class McCard extends StatelessWidget {
       child: Card(
         elevation: 0,
         clipBehavior: Clip.hardEdge,
-        color: AppTheme.medium_black,
+        color: AppTheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),

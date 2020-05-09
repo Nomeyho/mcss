@@ -16,7 +16,7 @@ class ErrorImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: AppTheme.disabled.withOpacity(0.1),
+      color: AppTheme.highlight,
     );
   }
 }

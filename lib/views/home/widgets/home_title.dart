@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/generated/i18n.dart';
-import 'package:mcss/views/add/add_bottom_sheet.dart';
+import 'package:mcss/views/home/widgets/add_server_button.dart';
 
 class HomeTitle extends StatelessWidget {
   @override
@@ -24,11 +24,7 @@ class HomeTitle extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.add, color: AppTheme.high_emphasis),
-          // TODO should only be visible/enabled if state is loaded?
-          onPressed: () => AddBottomSheet.show(context),
-        ),
+        AddServerButton(),
       ],
       pinned: true,
       floating: true,
