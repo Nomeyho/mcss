@@ -40,8 +40,8 @@ class _HomeViewState extends State<HomeView> {
           controller: scrollController,
           headerSliverBuilder: (BuildContext context, bool _) {
             return [
-              HomeTitle(scrollController: scrollController),
-              // HomeHeader(scrollController: scrollController),
+              HomeTitle(),
+              HomeHeader(scrollController: scrollController),
             ];
           },
           body: Container(

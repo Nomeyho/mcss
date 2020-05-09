@@ -7,7 +7,6 @@ import 'package:mcss/views/detail/widgets/player_list_section.dart';
 import 'package:mcss/views/detail/widgets/player_section.dart';
 import 'package:mcss/views/detail/widgets/version_section.dart';
 
-// TODO is the state check necessary?
 class DetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

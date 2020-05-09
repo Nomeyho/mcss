@@ -55,6 +55,7 @@ class DetailTitle extends StatelessWidget {
       backgroundColor: AppTheme.background,
       expandedHeight: 100,
       centerTitle: false,
+      leading: BackButton(color: AppTheme.high_emphasis),
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Row(

@@ -41,7 +41,7 @@ class PlayerListSection extends StatelessWidget {
               fontFamily: 'Lato',
               fontWeight: FontWeight.w400,
               fontSize: 12,
-              color: AppTheme.disabled,
+              color: AppTheme.medium_emphasis,
             ),
           )
         ],
