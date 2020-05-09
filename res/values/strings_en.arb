@@ -18,7 +18,12 @@
 
   "server_card_error": "Error",
   "server_card_loading": "Loading...",
+  "server_card_players": "players",
 
   "server_list_error": "Could not server status",
-  "server_list_empty": "Start by adding a new server"
+  "server_list_empty": "Start by adding a new server",
+
+  "ping_title": "Ping: ",
+  "player_title": "Online players: ",
+  "version_title": "Version: "
 }

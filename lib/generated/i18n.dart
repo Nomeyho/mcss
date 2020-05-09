@@ -34,10 +34,14 @@ class S implements WidgetsLocalizations {
   String get error_negative_port => "Port number cannot be negative";
   String get error_too_large_port => "Port number cannot be greater than 65535";
   String get home_title => "Minecraft Server Status";
+  String get ping_title => "Ping: ";
+  String get player_title => "Online players: ";
   String get server_card_error => "Error";
   String get server_card_loading => "Loading...";
+  String get server_card_players => "players";
   String get server_list_empty => "Start by adding a new server";
   String get server_list_error => "Could not server status";
+  String get version_title => "Version: ";
 }
 
 class $en extends S {
@@ -50,6 +54,48 @@ class $fr extends S {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  @override
+  String get add_server_hint => "play.hypixel.net";
+  @override
+  String get error_too_large_port => "Le port ne peut pas être supérieur à 65535";
+  @override
+  String get error_already_exist => "Ce serveur existe déjà";
+  @override
+  String get error_negative_port => "Le port ne peut pas être négatif";
+  @override
+  String get server_card_players => "joueurs";
+  @override
+  String get add_button => "Ajouter";
+  @override
+  String get add_cancel_button => "Annuler";
+  @override
+  String get ping_title => "Ping: ";
+  @override
+  String get home_title => "Minecraft Server Status";
+  @override
+  String get server_card_loading => "Chargement...";
+  @override
+  String get version_title => "Version: ";
+  @override
+  String get server_list_empty => "Commence par ajouter un serveur";
+  @override
+  String get category_mojang_servers => "Mojang serveurs";
+  @override
+  String get server_card_error => "Erreur";
+  @override
+  String get player_title => "Joueurs en ligne: ";
+  @override
+  String get add_title => "Nouveau serveur";
+  @override
+  String get add_server_ip => "IP du serveur";
+  @override
+  String get error_invalid_port => "Le port invalide";
+  @override
+  String get server_list_error => "Le status des serveurs n'a pas pu être récupéré";
+  @override
+  String get category_my_servers => "Mes serveurs";
+  @override
+  String get error_empty_ip => "L'IP du serveur est vide";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

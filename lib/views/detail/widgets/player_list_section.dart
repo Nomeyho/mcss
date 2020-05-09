@@ -3,7 +3,6 @@ import 'package:dart_mc_ping/model/chat_object.dart';
 import 'package:dart_mc_ping/model/player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_bloc.dart';
 import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_state.dart';
@@ -13,8 +12,6 @@ import 'package:mcss/widgets/loading_image.dart';
 import 'package:mcss/widgets/mc_card.dart';
 
 class PlayerListSection extends StatelessWidget {
-  static final NumberFormat f = NumberFormat('#,###,###');
-
   Widget _buildPlayer(Player player) {
     final uuid = player.id.replaceAll('-', '');
     final name = ChatObject.fromString(player.name).normalize();

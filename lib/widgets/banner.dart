@@ -27,7 +27,7 @@ class _BannerState extends State<Banner> {
       adUnitId: Config.adId,
       size: AdSize.banner,
       targetingInfo: MobileAdTargetingInfo(
-        keywords: ['Minecraft', 'Game', 'Server', 'Ping', 'Status', 'French'],
+        keywords: ['Minecraft', 'Game', 'Server', 'Ping', 'Status', 'ms'],
         childDirected: true,
         testDevices: [
           '7de57089f51ec6257cfd0f200760878f', // iOS - IPhone6s

@@ -1,3 +1,29 @@
 {
-  "category_title": "Catégories"
+  "category_my_servers": "Mes serveurs",
+  "category_mojang_servers": "Mojang serveurs",
+
+  "home_title": "Minecraft Server Status",
+
+  "add_title": "Nouveau serveur",
+  "add_server_ip": "IP du serveur",
+  "add_server_hint": "play.hypixel.net",
+  "add_button": "Ajouter",
+  "add_cancel_button": "Annuler",
+
+  "error_empty_ip": "L'IP du serveur est vide",
+  "error_invalid_port": "Le port invalide",
+  "error_negative_port": "Le port ne peut pas être négatif",
+  "error_too_large_port": "Le port ne peut pas être supérieur à 65535",
+  "error_already_exist": "Ce serveur existe déjà",
+
+  "server_card_error": "Erreur",
+  "server_card_loading": "Chargement...",
+  "server_card_players": "joueurs",
+
+  "server_list_error": "Le status des serveurs n'a pas pu être récupéré",
+  "server_list_empty": "Commence par ajouter un serveur",
+
+  "ping_title": "Ping: ",
+  "player_title": "Joueurs en ligne: ",
+  "version_title": "Version: "
 }

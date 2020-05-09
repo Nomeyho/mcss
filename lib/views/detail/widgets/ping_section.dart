@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_bloc.dart';
 import 'package:mcss/bloc/mc_server_detail_bloc/mc_server_detail_state.dart';
+import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/widgets/section_header.dart';
 
 class PingSection extends StatelessWidget {
@@ -14,7 +15,7 @@ class PingSection extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: SectionHeader(
-            title: 'Ping: ',
+            title: S.of(context).ping_title,
             subtitle: '${state.statusResponse.ms} ms',
           ),
         );

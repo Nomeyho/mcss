@@ -94,7 +94,8 @@ class _McServerCardState extends State<McServerCard> {
       color = AppTheme.medium_emphasis;
     } else if (state is McServerCardStateSuccess) {
       final players = state.statusResponse.players;
-      txt = '${players.online}/${players.max} players'; // TODO
+      txt =
+          '${players.online}/${players.max} ${S.of(context).server_card_players}';
       color = AppTheme.medium_emphasis;
     } else if (state is McServerCardStateFailure) {
       txt = S.of(context).server_card_error;

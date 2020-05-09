@@ -12,7 +12,8 @@ class McServerService {
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
       final strings = sharedPreferences.getStringList(serverListKey) ?? [];
-      final servers = strings.map((s) => McServer.parse(s)).toList(growable: false);
+      final servers =
+          strings.map((s) => McServer.parse(s)).toList(growable: false);
       log.fine('Loaded servers: $servers');
       return servers;
     } catch (e) {

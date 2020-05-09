@@ -1,5 +1,3 @@
-
-
 class McServer {
   static int defaultPort = 25565;
 
