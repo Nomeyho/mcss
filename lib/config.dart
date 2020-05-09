@@ -5,7 +5,7 @@ import 'package:logging/logging.dart';
 
 class Config {
   static final log = Logger('MCSS.Config');
-  static final bool debug = true;
+  static final bool debug = false;
 
   static String get appId {
     if (debug) {
@@ -15,7 +15,8 @@ class Config {
     } else if (Platform.isAndroid) {
       return 'ca-app-pub-3227008925572350~8772537749';
     } else {
-      log.config('App ID not available on platform ${Platform.operatingSystem}');
+      log.config(
+          'App ID not available on platform ${Platform.operatingSystem}');
       return null;
     }
   }

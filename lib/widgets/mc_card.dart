@@ -16,6 +16,8 @@ class McCard extends StatelessWidget {
       this.onPress})
       : super(key: key);
 
+  /// TODO: the automatic FadeIn is not ideal with the BLoC pattern
+  /// 'cause we don't control when Widget are rebuilt (immutable).
   @override
   Widget build(BuildContext context) {
     return FadeIn(

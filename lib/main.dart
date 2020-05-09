@@ -69,8 +69,6 @@ final defaultServers = [
   McServer('grmpixelmon.com', 25565),
   McServer('one.lemoncloud.net', 25565),
   McServer('play.extremecraft.net', 25565),
-
-  /*
   McServer('play.cubecraft.net', 25565),
   McServer('pvpwars.net', 25565),
   McServer('Play.datblock.com', 25565),
@@ -147,5 +145,4 @@ final defaultServers = [
   McServer('play.skyrealms.games', 25565),
   McServer('grmpixelmon.com', 25565),
   McServer('play.mc-drugs.com', 25565)
-  */
 ];
