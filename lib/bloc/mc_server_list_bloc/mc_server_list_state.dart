@@ -17,6 +17,10 @@ class McServerListLoadSuccess extends McServerListState {
     this.mcServers = const [],
   ]);
 
+  bool hasServer(McServer mcServer) {
+    return mcServers.contains(mcServer);
+  }
+
   @override
   List<Object> get props => [mcServers];
 }

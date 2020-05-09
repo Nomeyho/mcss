@@ -13,6 +13,7 @@
   "error_invalid_port": "Invalid port number",
   "error_negative_port": "Port number cannot be negative",
   "error_too_large_port": "Port number cannot be greater than 65535",
+  "error_already_exist": "This server already exist",
 
   "server_card_error": "Error",
   "server_card_loading": "Loading...",

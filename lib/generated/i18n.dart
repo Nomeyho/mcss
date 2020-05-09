@@ -27,6 +27,7 @@ class S implements WidgetsLocalizations {
   String get add_title => "Add a server";
   String get category_mojang_servers => "Mojang servers";
   String get category_my_servers => "My servers";
+  String get error_already_exist => "This server already exist";
   String get error_empty_ip => "Server IP is empty";
   String get error_invalid_port => "Invalid port number";
   String get error_negative_port => "Port number cannot be negative";

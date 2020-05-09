@@ -4,9 +4,9 @@ import 'package:logging/logging.dart';
 import 'package:mcss/app_theme.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_bloc.dart';
 import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_event.dart';
+import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_state.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
-import 'package:provider/provider.dart';
 
 class AddBottomSheet extends StatefulWidget {
   static PersistentBottomSheetController show(BuildContext context) {
@@ -40,7 +40,7 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
 
   _onIpChange(value) {
     McServer server;
-    String error; // TODO global error state?
+    String error;
 
     try {
       server = McServer.parse(value);
@@ -52,6 +52,12 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
       error = S.of(context).error_negative_port;
     } on TooLargePortNumberException {
       error = S.of(context).error_too_large_port;
+    }
+
+    final state = BlocProvider.of<McServerListBloc>(context).state
+        as McServerListLoadSuccess;
+    if (state.hasServer(server)) {
+      error = S.of(context).error_already_exist;
     }
 
     setState(() {
@@ -102,8 +108,7 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
         S.of(context).add_button,
         style: TextStyle(color: AppTheme.background),
       ),
-      onPressed:
-          (_error == null && _server != null) ? _onAdd : null,
+      onPressed: (_error == null && _server != null) ? _onAdd : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
       ),
