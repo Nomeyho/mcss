@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>mcss</string>
+	<string>MC Status</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -42,6 +42,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>GADApplicationIdentifier</key>
-    <string>ca-app-pub-3227008925572350~5776810094</string>
+	<string>ca-app-pub-3227008925572350~5776810094</string>
 </dict>
 </plist>

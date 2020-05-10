@@ -10,7 +10,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Minecraft Server Status',
+      title: 'MC Status',
       initialRoute: Router.home,
       onGenerateRoute: Router.generateRoute,
       navigatorKey: Router.navigatorKey,

@@ -1,4 +1,4 @@
-# Minecraft Server Status
+# MC Status
 > A cross-platform mobile application to check the status of Minecraft serveurs as well as Mojang servers.
 
 ## Development
@@ -15,7 +15,7 @@ Download `GoogleService-Info.plist` and place the file under`(*with XCODE*):
 ios/Runner/GoogleService-Info.plist
 ```
 
-### Generate the icons
+### Generate icons
 ```
 flutter pub run flutter_launcher_icons:main
 ```
