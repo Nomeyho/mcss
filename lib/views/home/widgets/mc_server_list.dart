@@ -7,6 +7,7 @@ import 'package:mcss/bloc/mc_server_list_bloc/mc_server_list_state.dart';
 import 'package:mcss/domain/mc_server.dart';
 import 'package:mcss/generated/i18n.dart';
 import 'package:mcss/services/mc_server_service.dart';
+import 'package:mcss/utils/responsive_utils.dart';
 import 'package:mcss/views/home/widgets/mc_server_card.dart';
 import 'package:provider/provider.dart';
 
@@ -70,11 +71,21 @@ class McServerList extends StatelessWidget {
           if (state.mcServers.isEmpty) {
             return _buildEmpty(context);
           } else {
-            return ListView(
-              children: state.mcServers
-                  .map((s) => _buildServerCard(s))
-                  .toList(growable: false),
-            );
+            if (ResponsiveUtils.isTablet(context)) {
+              return GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 5,
+                children: state.mcServers
+                    .map((s) => _buildServerCard(s))
+                    .toList(growable: false),
+              );
+            } else {
+              return ListView(
+                children: state.mcServers
+                    .map((s) => _buildServerCard(s))
+                    .toList(growable: false),
+              );
+            }
           }
         } else {
           return Container();

@@ -1,6 +1,12 @@
 # MC Status
 > A cross-platform mobile application to check the status of Minecraft serveurs as well as Mojang servers.
 
+## Technical stack
+
+## Features
+
+## Screenshots
+
 ## Development
 
 ### Android

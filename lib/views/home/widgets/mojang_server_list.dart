@@ -4,6 +4,7 @@ import 'package:mcss/app_theme.dart';
 import 'package:mcss/bloc/mojang_server_list_bloc/mojang_server_list_bloc.dart';
 import 'package:mcss/bloc/mojang_server_list_bloc/mojang_server_list_state.dart';
 import 'package:mcss/generated/i18n.dart';
+import 'package:mcss/utils/responsive_utils.dart';
 import 'package:mcss/views/home/widgets/mojang_server_card.dart';
 
 class MojangServerList extends StatelessWidget {
@@ -36,10 +37,21 @@ class MojangServerList extends StatelessWidget {
         } else if (state is MojangServerListLoadFailure) {
           return _buildError(context);
         } else if (state is MojangServerListLoadSuccess) {
-          return ListView(
+          if (ResponsiveUtils.isTablet(context)) {
+            return GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: 5,
               children: state.mojangServers
                   .map((s) => MojangServerCard(server: s))
-                  .toList(growable: false));
+                  .toList(growable: false),
+            );
+          } else {
+            return ListView(
+              children: state.mojangServers
+                  .map((s) => MojangServerCard(server: s))
+                  .toList(growable: false),
+            );
+          }
         } else {
           return Container();
         }

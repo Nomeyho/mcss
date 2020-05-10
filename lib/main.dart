@@ -77,7 +77,6 @@ final defaultServers = [
   McServer('play.loverfella.com', 25565),
   McServer('play.mineheroes.org', 25565),
   McServer('play.mc-blaze.com', 25565),
-  McServer('one.lemoncloud.net', 25565),
   McServer('mc-gtm.net', 25565),
   McServer('mc.gamster.org', 25565),
   McServer('join.manacube.net', 25565),

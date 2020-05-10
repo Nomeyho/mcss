@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:mcss/app_theme.dart';
 import 'package:mcss/config.dart';
 
 class Banner extends StatefulWidget {
@@ -55,15 +54,8 @@ class _BannerState extends State<Banner> {
     super.dispose();
   }
 
-  bool _keyboardIsVisible() {
-    return MediaQuery.of(context).viewInsets.bottom != 0.0;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppTheme.background,
-      height: _keyboardIsVisible() ? 0 : AdSize.banner.height.toDouble(),
-    );
+    return Container();
   }
 }
