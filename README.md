@@ -1,6 +1,5 @@
-# mcss
-
-Check the status of Minecraft servers
+# Minecraft Server Status
+> A cross-platform mobile application to check the status of Minecraft serveurs as well as Mojang servers.
 
 ## Development
 
@@ -14,4 +13,9 @@ mobile/android/app/google-services.json
 Download `GoogleService-Info.plist` and place the file under`(*with XCODE*):
 ```
 ios/Runner/GoogleService-Info.plist
+```
+
+### Generate the icons
+```
+flutter pub run flutter_launcher_icons:main
 ```
