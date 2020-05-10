@@ -11,9 +11,9 @@ class Config {
     if (debug) {
       return BannerAd.testAdUnitId;
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3227008925572350~5776810094';
+      return 'ca-app-pub-3227008925572350~6585502458';
     } else if (Platform.isAndroid) {
-      return 'ca-app-pub-3227008925572350~8772537749';
+      return 'ca-app-pub-3227008925572350~7124558500';
     } else {
       log.config(
           'App ID not available on platform ${Platform.operatingSystem}');
@@ -25,9 +25,9 @@ class Config {
     if (debug) {
       return BannerAd.testAdUnitId;
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3227008925572350/6492014015';
+      return 'ca-app-pub-3227008925572350/9422105704';
     } else if (Platform.isAndroid) {
-      return 'ca-app-pub-3227008925572350/1099198484';
+      return 'ca-app-pub-3227008925572350/7571281061';
     } else {
       log.config('Ad ID not available on platform ${Platform.operatingSystem}');
       return null;

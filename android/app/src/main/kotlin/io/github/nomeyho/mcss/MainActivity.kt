@@ -1,4 +1,4 @@
-package io.github.nomeyho.mcss
+package io.github.nomeyho.mcstatus
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
