@@ -33,7 +33,7 @@ class S implements WidgetsLocalizations {
   String get error_invalid_port => "Invalid port number";
   String get error_negative_port => "Port number cannot be negative";
   String get error_too_large_port => "Port number cannot be greater than 65535";
-  String get home_title => "Minecraft Server Status";
+  String get home_title => "MC Server Status";
   String get ping_title => "Ping: ";
   String get player_title => "Online players: ";
   String get server_card_error => "Error";
@@ -71,7 +71,7 @@ class $fr extends S {
   @override
   String get ping_title => "Ping: ";
   @override
-  String get home_title => "Minecraft Server Status";
+  String get home_title => "MC Server Status";
   @override
   String get server_card_loading => "Chargement...";
   @override
