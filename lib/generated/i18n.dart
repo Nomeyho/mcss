@@ -26,7 +26,7 @@ class S implements WidgetsLocalizations {
   String get add_server_hint => "play.hypixel.net";
   String get add_server_ip => "Server IP";
   String get add_title => "New server";
-  String get category_mojang_servers => "Mojang servers";
+  String get category_mojang_servers => "Other servers";
   String get category_my_servers => "My servers";
   String get error_already_exist => "This server already exist";
   String get error_empty_ip => "Server IP is empty";
@@ -79,7 +79,7 @@ class $fr extends S {
   @override
   String get server_list_empty => "Commence par ajouter un serveur";
   @override
-  String get category_mojang_servers => "Mojang serveurs";
+  String get category_mojang_servers => "Autres serveurs";
   @override
   String get server_card_error => "Erreur";
   @override
